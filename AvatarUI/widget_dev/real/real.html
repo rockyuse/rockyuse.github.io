@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>实时数据</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.realHeader{
+	height:50px;
+  background-color: #2972bc;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#2972bc), to(#145ca6));
+  background-image: -webkit-linear-gradient(top, #2972bc, #145ca6);
+  background-image:    -moz-linear-gradient(top, #2972bc, #145ca6);
+  background-image:      -o-linear-gradient(top, #2972bc, #145ca6);
+  background-image:         linear-gradient(to bottom, #2972bc, #145ca6);
+}
+.realHeader .con{width:1280px; height: 50px; }
+
+.realLeft{float:left; width:220px;}
+.realRight{margin-left:220px; padding:10px;}
+
+/* 实时仪表盘 */
+.realMeter{ float:right; width:310px; height:300px; border:1px solid #E4EBF3; background: #F4F8FB; -webkit-border-radius:5px; border-radius:5px;}
+.realMeter .meterOverviewNum{ line-height: 60px; color: #073073; font-family: Impact; font-size: 48px; text-align: center;}
+.realMeter .meterCon{ width:180px; height:150px; margin:0 auto;}
+.realMeter .meterMax{color:#777; text-align: center}
+
+
+/* 实时曲线图 */
+.realLine{ height:300px; margin-right:320px; background: #E2EFF8; border:1px solid #D6E6F3; -webkit-border-radius:5px; border-radius:5px;}
+.realLine .tab{ height:43px; margin-top:2px; border-bottom:1px solid #D5E5F4;}
+.realLine .tab li{ float:left; width:150px; height:43px; margin-left:10px; line-height:42px; font-size: 14px; text-align: center; }
+.realLine .tab li a{ color:#1366aa;}
+.realLine .tab li.active{ height:42px; background: #fff; border:1px solid #D5E5F4; border-bottom:1px solid #fff; -webkit-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0;}
+.realLine .tab li.active a{ color:#555;}
+.lineChart{height:254px; background:#fff; -webkit-border-radius:0 0 5px 5px; border-radius:0 0 5px 5px; text-align: center;}
+
+.chartToolTip{width:133px; height:48px; padding:4px 0 0 51px; background: url(images/real_chart_bg.png);}
+.chartToolTip .pointValue{ font-size:14px; line-height: 26px; color:#b84303; font-family:Verdana;}
+.chartToolTip .pointDate{ line-height: 18px; font-size: 11px; color:#fff; font-family:Verdana;}
+
+.meterTitle{ width:70px; height:24px; margin:10px auto; padding-left:18px; background: url(images/icon_user.jpg) 0 center no-repeat; line-height: 24px; font-size:14px; color:#7f9dcf;}
+.meterTitle1{ width:200px; height:24px; margin:10px auto; background: url(images/icon_user.jpg) 0 0 no-repeat;}
+.realDetail{ height:285px; margin-top:20px; background: #F4F8FB; border:1px solid #E4EBF3; -webkit-border-radius:5px; border-radius:5px;}
+
+
+
+.realDetail .leftTd{ height:285px; background: url(images/real_detail_bg.png) right 0 no-repeat;}
+.realDetail .rightTd{ height:285px; background: url(images/real_detail_bg.png) left -285px no-repeat;}
+
+/* 实时环状图 */
+.realDonutWrap{ width:350px; }
+.realDonut{ float:left; position: relative; width:150px; margin:0 12px;}
+.realDonutNewUser{ position: absolute;}
+
+.realDonut .newUser{position: absolute; top:30px; left:0; width:150px;}
+.realDonut .newUserIcon{width:31px; height:34px; margin:0 auto; background:url(images/icon_person_big.jpg);}
+.realDonut .newUserNum{ height:58px; line-height: 40px; color:#1b64ae; font-size: 30px; font-family: Impact; text-align: center;}
+.realDonut .newUserTxt{ font-size:14px; color:#7F9DCF; text-align: center;}
+.realDonut .newUserMax{ margin-top:10px; color:#777; text-align: center;}
+
+.realDonut .newUserRatePerson{ width:40px; height:17px; margin:3px auto 0; background: url(images/icon_person_small.png) right 0}
+.realDonut .newUserRatePersonCon{width:0; height:17px; background: url(images/icon_person_small.png)}
+.realDonut .newUserRateReal{height:46px; line-height:44px; color:#1b64ae; font-size: 30px; font-family: Impact; text-align: center;}
+.realDonut .newUserRateTxt{font-size:14px; color:#7F9DCF; text-align: center;}
+
+/* 累计 */
+.realAccum{width:325px; margin:15px auto;}
+.realAccum dl{ clear: both; margin-bottom:10px; overflow: hidden;}
+.realAccum dl dt{ float: left; width:45px; height:28px; background: url(images/icon_real.jpg) no-repeat;}
+.realAccum dl dt.dt1{ height:40px; background-position: 0 0;}
+.realAccum dl dt.dt2{ height:28px; background-position: 0 -40px;}
+.realAccum dl dt.dt3{ height:29px; background-position: 0 -68px;}
+.realAccum dl dd{ float: left; }
+.realAccum dl dd h2{font-size:14px; color:#7f9dcf;}
+.realAccum dl dd p{ height:40px; font-size:24px; font-family: Impact; color:#073073;}
+.realAccum dl dd p.p1{height:70px; line-height:60px; font-size:48px;}
+
+/* 温度计 */
+.realTherm{width:280px; margin:0 auto;}
+.thermometer{ float:left; width:110px; margin:0 15px;}
+.thermometer h2{line-height:18px; font-size:14px; color:#7F9DCF;}
+.thermometer h3{font-size:18px;  font-family:Impact; color:#073073;}
+.therm{ position: relative; width:39px; height:170px;}
+.therm .icon{ position:absolute; bottom:0; left:0; width:39px; height:39px; background: url(images/thermometer_bg.png); z-index: 1;}
+.thermPillar{ position:relative; float:left; width:22px; height:150px; left:8px; background: url(images/thermometer_bg.png) -260px 0; border:1px solid #CBCBCB; -webkit-border-radius:4px; border-radius:4px;}
+.thermometer .staticValue{margin-top:5px; color:#777;}
+
+.thermPillar .realValue{position: absolute; left:-1px; bottom:0; width:22px; height:0; background:url(images/thermometer_bg.png); border-bottom:0; -webkit-border-radius:4px; border-radius:4px;}
+.thermPillar .lastValue{ position: absolute; left:23px; bottom:0; width:5px; height:0; background:url(images/thermometer_bg.png); border-bottom:0;}
+.thermPillar .lastValueTip{ display: none; position:absolute; left:5px; bottom:0; width:81px; height:58px; padding:5px; background:url(images/thermometer_bg.png);}
+
+.thermBlue .icon{ background-position: -39px 0}
+.thermOrange .thermPillar .realValue{ background-position:-282px 0; border:1px solid #CD9447;}
+.thermBlue .thermPillar .realValue{ background-position:-309px 0; border:1px solid #6AA3D0;}
+
+.thermOrange .thermPillar .lastValue{ background-position:-304px 0; border-top:1px solid #E3C69C; border-right:1px solid #E3C69C;}
+.thermBlue .thermPillar .lastValue{ background-position:-331px 0; border-top:1px solid #A2C0D8; border-right:1px solid #A2C0D8;}
+
+.thermOrange .thermPillar .lastValueTip{ background-position: -78px 0; color:#b84303;}
+.thermBlue .thermPillar .lastValueTip{ background-position: -169px 0; color:#4989bc;}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/meter.js"></script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<script type="text/javascript">
+$(function(){
+	//字符串替换
+	String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+	    if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+	        return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+	    } else {  
+	        return this.replace(reallyDo, replaceWith);  
+	    }  
+	};
+
+	var formatNum = function(str){
+	    str = str.toString();
+	    if(/[^0-9\.]/.test(str)){return str;}
+	    var strFloor = '';
+	    if(RegExp('\\.').test(str)){
+	        strArr = str.split('.');
+	        str = strArr[0];
+	        strFloor = '.' + strArr[1];
+	    }
+	    var n = str.length % 3;
+	    if(n){
+	        return str.slice(0,n) +  str.slice(n).replace(/(\d{3})/g,',$1') + strFloor;
+	    }else{
+	        return str.replace(/(\d{3})/g,',$1').slice(1) + strFloor;
+	    }
+	};
+
+//数字跳动
+function numUpdate(bindDom, startNum, endNum, timerInterval, minInterval, fixed){
+	var numTimer;
+	minInterval = minInterval || 32;
+	
+	fixed = fixed || 0;
+
+	var _staticEndNum = endNum;
+	var diff = endNum - startNum;
+	var diffUp = diff > 0;
+	diff = Math.abs(diff);
+
+	var interval, intervalNum;
+	if(diff < timerInterval/minInterval){
+		interval = timerInterval/diff;
+		intervalNum = 1;
+	}else{
+		interval = minInterval;
+		intervalNum = diff/(timerInterval/minInterval);
+	}
+
+	numUpdateCircle();
+	function numUpdateCircle(){
+		if(diffUp && startNum < endNum){
+			numTimer = setTimeout(function(){
+				startNum += intervalNum;
+
+				if(startNum > _staticEndNum){
+					startNum = _staticEndNum;
+				}
+				bindDom.html(formatNum(startNum.toFixed(fixed)));
+				numUpdateCircle();
+			}, interval);
+		}else if(!diffUp && startNum > endNum){
+			numTimer = setTimeout(function(){
+				startNum -= intervalNum;
+				if(startNum < _staticEndNum){
+					startNum = _staticEndNum;
+				}
+				bindDom.html(formatNum(startNum.toFixed(fixed)));
+				numUpdateCircle();
+			}, interval);
+		}
+	}
+	return numTimer;
+}
+
+function loadAccum(){
+	numUpdate($('#AccumTotalUV'), 0, 3411234324, 800);
+	numUpdate($('#AccumTotalStartTimes'), 0, 4123421, 800);
+	numUpdate($('#AccumTotalPV'), 0, 12341, 800);
+}
+
+function reFreshAccum(){
+	numUpdate($('#AccumTotalUV'), 3411234324, 3411234345, 800);
+	numUpdate($('#AccumTotalStartTimes'), 4123421, 4123434, 800);
+	numUpdate($('#AccumTotalPV'), 12341, 12345, 800);
+}
+
+
+loadAccum();
+
+$('#RefreshRealAccum').click(function(){
+	reFreshAccum();
+});
+
+
+var startTimesLast = 9705305;
+var startTimesMax = 10679156;
+var startTimeReal = 5604451;
+
+var pvLast = 14954858;
+var pvMax = 17385847;
+var pvReal = 8321193;
+
+//第一次加载温度计
+function loadTherm(_real, _last, _max, bindDom){
+	numUpdate($(bindDom).find('.real'), 0, _real, 300);
+	numUpdate($(bindDom).find('.last'), 0, _last, 300);
+	numUpdate($(bindDom).find('.max'), 0, _max, 300);
+
+	var _realPercent = _real/_max;
+	_realPercent = _realPercent > 1 ? 1 : _realPercent;
+
+	var _lastPercent = _last/_max;
+	_lastPercent = _lastPercent > 1 ? 1 : _lastPercent;
+
+	$(bindDom).find('.realValue').animate({'height': _realPercent * 150}, 800);
+	$(bindDom).find('.lastValue').animate({'height': _lastPercent * 150}, 800);
+	$(bindDom).find('.lastValueTip').animate({'bottom': _lastPercent * 150}, 800);
+}
+
+//刷新温度计
+function reFreshTherm(_real, _max, bindDom){
+	var lastValue = $(bindDom).find('.real').html().replaceAll(',', '');
+
+	numUpdate($(bindDom).find('.real'), parseInt(lastValue), _real, 800);
+
+	var _realPercent = _real/_max;
+	_realPercent = _realPercent > 1 ? 1 : _realPercent;
+
+	$(bindDom).find('.realValue').animate({'height': _realPercent * 150}, 800);
+}
+
+loadTherm(startTimeReal, startTimesLast, startTimesMax, '#StartTimesReal');
+loadTherm(pvReal, pvLast, pvMax, '#PVReal');
+
+//显示昨天数据
+$('.thermPillar .lastValue').hover(function(){
+	$(this).parent().find('.lastValueTip').fadeIn(200);
+}, function(){
+	$(this).parent().find('.lastValueTip').fadeOut(150);
+});
+
+//刷新温度计
+$('#RefreshRealTherm').click(function(){
+	reFreshTherm(5786675, startTimesMax, '#StartTimesReal');
+	reFreshTherm(8650947, pvMax, '#PVReal');
+});
+
+$('#MeterOverview').Meter({
+	lines: 12,
+	angle: 0.13,
+	lineWidth: 0.44,
+	pointer: {
+		length: 1,
+		strokeWidth: 0.035,
+		color: '#333'
+	},
+	colorStart: '#65A0DC',
+	colorStop: '#65A0DC',
+	strokeColor: '#d1d1d1',
+	generateGradient: true
+});
+
+var meter = $('#MeterOverview').data().meter;
+
+
+meter.maxValue = 958469;
+meter.set(324204);
+
+numUpdate($('#RealMeterMax'), 0, 858469, 300);
+numUpdate($('#RealMeterReal'), 0, 20988, 300);
+
+$('#RealDonutNewUser').Donut({
+	lineWidth: 0.12,
+	colorStart: "#98C649",
+	colorStop: "#98C649",
+	strokeColor: '#eee',
+	shadowColor: "#d5d5d5",
+	angle: 0.3
+});
+
+var donutNewUser = $('#RealDonutNewUser').data().donut;
+
+donutNewUser.maxValue = 858469;
+donutNewUser.set(458469);
+
+
+$('#RealDonutNewUserRate').Donut({
+	lineWidth: 0.12,
+	colorStart: "#98C649",
+	colorStop: "#98C649",
+	strokeColor: '#eee',
+	shadowColor: "#d5d5d5",
+	angle: 0.5
+});
+
+var donutNewUserRate = $('#RealDonutNewUserRate').data().donut;
+
+donutNewUserRate.maxValue = 100;
+donutNewUserRate.set(22.22);
+
+numUpdate($('#RealDonutNewUserNum'), 0, 858469, 300);
+numUpdate($('#RealDonutNewUserRateNum'), 0, 758469, 300);
+
+
+numUpdate($('#NewUserReal'), 0, 54542, 300);
+numUpdate($('#NewUserRateReal'), 0, 23.46, 300, 32, 2);
+
+newUserRateBg(56.46)
+function newUserRateBg(rate){
+	$('#NewUserRatePerson').animate({'width': 40*rate/100}, 300)
+}
+
+var categories= ['12:00', '12:05' ,'12:10', '12:15', '12:20', '12:25', '12:30', '12:35', '12:40', '12:45', '12:50' ]
+
+var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'RealLine',
+            type: 'areaspline',
+            marginTop: 20,
+            marginRight: 15,
+            marginBottom: 20,
+			height: 250,
+			events: {
+                load: function() {
+        //             var series = this.series[0];
+        //             setInterval(function() {
+        //                series.setData(data);
+					   // data.shift();
+					   // data.push(Math.ceil(Math.random()*1000)*100);
+        //             }, 5000);
+		        }
+			}
+        },
+
+        title: {
+            text: ''
+        },
+		colors:['#D1D1D1','#92C2F3'], 
+        xAxis: { 
+			startOnTick: true,
+			//endOnTick: true,
+			// startOnTick: true,
+		    lineWidth: 0,
+			//categories:['12:00', '12:05' ,'12:10', '12:15', '12:20', '12:25', '12:30', '12:35', '12:40', '12:45', '12:50' ],
+			type:'datetime',
+			tickmarkPlacement: 'on',
+			tickColor: '#ddd',
+			tickPosition: "outside",
+            labels: {
+				formatter:function(){
+					return  categories[this.value];
+				}
+			}
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+			showFirstLabel: false,
+            // max: 100000,
+            alternateGridColor: '#FBFBFB',
+            gridLineColor: '#E4ECEF',
+            gridLineDashStyle: 'dash',
+			labels: {
+				//  align: 'left',
+                formatter: function() {
+                	if(this.value < 1000){
+	                    return this.value;
+	                }else{
+	                	return this.value / 1000 +'k';
+	                }
+                }
+            }
+        },
+		credits:{
+			enabled:false
+		},
+		legend: {
+			enabled: false
+		},
+        tooltip: {
+			backgroundColor: 'rgba(0, 0, 0, 0.00)',
+			borderWidth: 0,
+			shadow: false,
+			useHTML: true,
+            formatter: function() {
+			return '<div class="chartToolTip">'
+					  +'<div class="pointValue">'+this.series.name+':<b>'+formatNum(this.y)+'</b></div>'
+				      +'<div class="pointDate">2012-12-20:'+this.x+'</div>'
+			      +'</div>';
+            },
+			// crosshairs: {
+			// 	width: 1,
+			// 	color: '#CADDEE'
+			// }
+        },
+		
+        plotOptions: {
+            areaspline: {
+				//lineColor:'red',
+				lineWidth: 1,
+				shadow: false,
+				// trackByArea :true,
+				fillOpacity: 0.2,
+				marker: {
+				    enabled: false,
+				    symbol: 'circle',
+				    radius: 3,
+				    states: {
+				        hover: {
+				            enabled: true,
+							fillColor: '#fff',
+							lineColor: "#599FE4",
+							lineWidth: 2
+				        }
+				    }
+				}
+            }
+        },
+        series: [{   
+            name: '昨日',
+			index: 0 ,
+			data:[4737, 4059, 3056, 2498, 2040, 3523, 4224, 5342, 8662,5956,4000]
+        },
+        {
+            name: '实时',
+			data:[3737, null, 4406, 5982, 4040, {
+                y: 4790,
+				lineWidth: 10,
+                marker: {
+				    enabled: true,
+					lineWidth: 10,
+					y: 5,
+                    symbol: 'url(images/point.png)'
+                }
+            }]
+        }]
+    });
+
+
+	$('#abc').click(function(){
+		meter.set(555555);
+	})
+
+});
+
+</script>
+</head>
+<body>
+<a href="javascript:;" id="abc">adfasdfasdfasdf</a>
+<div class="realHeader"><div class="con"><img src="images/header.jpg"/></div></div>
+
+<div class="realContent">
+	<div class="realLeft"><img src="images/left.jpg"/></div>
+
+	<div class="realRight">
+		<div class="realMeter">
+			<div class="meterTitle">启动用户</div>
+			<div class="meterOverviewNum" id="RealMeterReal"></div>
+			<div class="meterCon">
+				<canvas width=180 height=130 id="MeterOverview"></canvas>
+			</div>
+			<div class="meterMax">
+				最近30天最高纪录 <b id="RealMeterMax"></b>
+			</div>
+		</div>
+
+		<div class="realLine">
+			<div class="tab">
+				<ul>
+					<li class="active"><a href="javascript:;">启动用户</a></li>
+					<li><a href="javascript:;">新用户</a></li>
+					<li><a href="javascript:;">启动次数</a></li>
+					<li><a href="javascript:;">浏览量</a></li>
+				</ul>
+			</div>
+			<div class="lineChart">
+				<div id="RealLine"></div>
+			</div>
+		</div>
+
+		<div class="realDetail">
+			<table colspan="0" colpadding="0" border="0" width="100%" >
+				<tr>
+					<td class="leftTd" width="33%">
+						<div class="realDonutWrap">
+							<div class="realDonut">
+								<canvas width=150 height=150 id="RealDonutNewUser"></canvas>
+								<div class="newUser">
+									<div class="newUserIcon"></div>
+									<div class="newUserNum" id="NewUserReal"></div>
+
+									<div class="newUserTxt">新用户</div>
+								</div>
+								<div class="newUserMax">
+									最近30天最高纪录<br/>
+									<b id="NewUserMax">2,265,851</b>
+								</div>
+							</div>
+							<div class="realDonut">
+								<canvas width=150 height=150 id="RealDonutNewUserRate"></canvas>
+
+								<div class="newUser">
+									<div class="newUserRatePerson" >
+										<div class="newUserRatePersonCon" id="NewUserRatePerson"></div>
+									</div>
+									<div class="newUserRateReal"><span id="NewUserRateReal"></span> %</div>
+									<div class="newUserRateTxt">新用户比例</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="centerTd" width="33%">
+						<a href="javascript:;" id="RefreshRealAccum" style="float:right">刷新</a>
+						<div class="realAccum">
+							<dl>
+								<dt class="dt1"></dt>
+								<dd>
+									<h2>累计用户</h2>
+									<p class="p1" id="AccumTotalUV">341,1234,324</p>
+								</dd>
+							</dl>
+							<dl>
+								<dt class="dt2"></dt>
+								<dd>
+									<h2>累计启动次数</h2>
+									<p id="AccumTotalStartTimes">245,234</p>
+								</dd>
+							</dl>
+							<dl>
+								<dt class="dt3"></dt>
+								<dd>
+									<h2>累计浏览量</h2>
+									<p id="AccumTotalPV">4,235</p>
+								</dd>
+							</dl>
+						</div>
+					</td>
+					<td class="rightTd" width="33%" align="center">
+						<a href="javascript:;" id="RefreshRealTherm" style="float:right">刷新</a>
+
+						<div class="realTherm">
+							<div class="thermometer" id="StartTimesReal">
+								<h2>启动次数</h2>
+								<h3 class="real"></h3>
+
+								<div class="therm thermOrange">
+									<div class="icon"></div>
+									<div class="thermPillar">
+										<div class="realValue"></div>
+										<div class="lastValue"></div>
+										<div class="lastValueTip">昨天启动次数<br/><b class="last"></b></div>
+									</div>
+								</div>
+
+								<div class="staticValue">
+									<p>最近30天最高纪录</p>
+									<b class="max"></b>
+								</div>
+							</div>
+
+							<div class="thermometer" id="PVReal">
+								<h2>浏览量</h2>
+								<h3 class="real"></h3>
+
+								<div class="therm thermBlue">
+									<div class="icon"></div>
+									<div class="thermPillar">
+										<div class="realValue"></div>
+										<div class="lastValue"></div>
+										<div class="lastValueTip">昨天浏览量<br/><b class="last"></b></div>
+									</div>
+								</div>
+
+								<div class="staticValue">
+									<p>最近30天最高纪录</p>
+									<b class="max"></b>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

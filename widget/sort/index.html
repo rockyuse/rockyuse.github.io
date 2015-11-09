@@ -1,0 +1,105 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>升序降序</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+</head>
+<body>
+	<ul id="Ul">
+		<li>a:<span class="a">1</span>---<span class="b">2</span></li>
+		<li>b:<span class="a">3</span>---<span class="b">2</span></li>
+		<li>c:<span class="a">22</span>---<span class="b">2</span></li>
+		<li>d:<span class="a">26</span>---<span class="b">3</span></li>
+		<li>e:<span class="a">2</span>---<span class="b">1</span></li>
+	</ul>
+	<button id="AUp">a升序</button><br/>
+	<button id="ADown">a降序</button><br/>
+	<button id="BUp">b升序</button><br/>
+	<button id="BDown">b降序</button><br/>
+
+<script type="text/javascript">
+var distinct = function(arr){   
+    var i = 0, l = arr.length, v, t, o = {}, n = [];   
+    for(; i < l; i++){ 
+        v = arr[i], t = typeof v;   
+        if(typeof o[v+t] == 'undefined'){   
+            o[v+t] = 1;  
+            n.push(v); 
+        }  
+    } 
+    return n;   
+};
+$(function(){
+	var fir = {}, first = [];
+	var sec = {}, second = [];
+
+	$('#Ul li').each(function(){
+		var k = $(this).find('.a').html();
+		
+		first.push(parseFloat(k));
+		if(fir[k] == undefined){
+			fir[k] = [];
+		}
+		fir[k].push($(this).html());
+
+		var k1 = $(this).find('.b').html();
+
+		second.push(parseFloat(k1));
+		if(sec[k1] == undefined){
+			sec[k1] = [];
+		}
+		sec[k1].push($(this).html());
+	});
+	
+	first = distinct(first);
+	second = distinct(second);
+
+	$('#AUp').click(function(){
+		first.sort(function(a,b){return a>b?1:-1});
+		$('#Ul').html('');
+		$.each(first, function(k, v){
+			var _first = fir[v];
+			$.each(_first, function(k, v){
+				$('#Ul').append('<li>' + v + '</li>')
+			})
+		})
+	});
+
+	$('#ADown').click(function(){
+		first.sort(function(a,b){return a>b?-1:1});
+
+		$('#Ul').html('');
+		$.each(first, function(k, v){
+			var _first = fir[v];
+			$.each(_first, function(k, v){
+				$('#Ul').append('<li>' + v + '</li>')
+			})
+		})
+	})
+
+	$('#BUp').click(function(){
+		second.sort(function(a,b){return a>b?1:-1});
+		$('#Ul').html('');
+		$.each(second, function(k, v){
+			var _second = sec[v];
+			$.each(_second, function(k, v){
+				$('#Ul').append('<li>' + v + '</li>')
+			})
+		})
+	});
+
+	$('#BDown').click(function(){
+		second.sort(function(a,b){return a>b?-1:1});
+
+		$('#Ul').html('');
+		$.each(second, function(k, v){
+			var _second = sec[v];
+			$.each(_second, function(k, v){
+				$('#Ul').append('<li>' + v + '</li>')
+			})
+		})
+	})
+})
+</script>
+</body>
+</html>

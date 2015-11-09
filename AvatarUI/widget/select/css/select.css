@@ -1,0 +1,33 @@
+/**
+ * AvatarUI-模拟下拉框
+ * @version v2.0.1
+ * @author  Rocky(296456018@qq.com)
+ * @date    2013-04-25
+ */
+
+/*------ 模拟下拉框  start ------*/
+.imitSelect{ position:relative; float:left; height:16px; padding:2px 0; border:1px solid #ADAEB3; line-height:16px; color:#111; z-index:100; }
+.selectBtn{ position:absolute; right:1px; top:1px; _top:2px; width:17px; height:18px; background:url(../images/select_bg.png); line-height:18px; font-size:0;}
+.selectBtn:hover{ background:url(../images/select_bg.png) 0 -18px;}
+.selectBtn:active{ background:url(../images/select_bg.png) 0 -36px;}
+.selectBtnDown{ background:url(../images/select_bg.png) -17px -18px;}
+.selectBtnDown:hover{ background:url(../images/select_bg.png) -17px -18px;}
+.selectBtnDown:active{ background:url(../images/select_bg.png) -17px -36px;}
+.selectInputName{ height:16px; padding:0 3px; border:0; line-height:16px; font-family:Tahoma,Lucida Grande,Verdana,sans-serif; cursor:pointer; font-size:12px;}
+
+.imitSelect .selectUl{ display:none; position:absolute; top:20px; left:-1px; }
+.imitSelect ul{ overflow-x:hidden; overflow-y:auto; background:#fff; border:1px solid #838790; }
+.imitSelect li{ line-height:22px; font-size:12px;}
+.imitSelect li a{ display:block; padding:0 3px; font-size:12px; color:#333;}
+.imitSelect li a:hover{ background:#3399FF; text-decoration:none; color:#fff; }
+.imitSelect li a.searched{ color:red;}
+.imitSelect li a.selected, .imitSelect li a.selected:hover{ background:#3399FE; color:#fff;}
+.imitSelect li a input{ vertical-align:middle; margin:-1px 2px 0 0;}
+.imitSelectTip{ display:none; position:absolute; background:#D9F1FB; border:1px solid #7FCDEE; line-height:18px; text-shadow:0 0 1px #fff; -moz-box-shadow:2px 2px 5px #DAF5FA; -webkit-box-shadow:2px 2px 5px #DAF5FA; box-shadow:2px 2px 5px #DAF5FA; z-index:1000; word-wrap: break-word;}
+.imitSelectTip .tipInner, .imitSelectTip .tipCon{ display:inline-block; position:relative; width:auto; margin:0 -2px; border-left:1px solid #7FCDEE; border-right:1px solid #7FCDEE; background:#D9F1FB;}
+.imitSelectTip .tipCon{ margin:1px -2px; padding:5px; }
+.imitSelectTip li{ line-height:20px; border-bottom:1px dashed #9AD7F1;}
+.imitSelectTip .delSelect{ float:right; width:20px; line-height:20px; color:#FF6600; text-align:center;}
+.imitSelectTip .tipArrow, .imitSelectTip .tipArrow1{ display:block; position:absolute; left:50%; bottom:-12px; width:0; height:0; margin-left:-6px; overflow:hidden; z-index:999; border:6px dashed transparent; border-top-style:solid; border-top-color:#d9f1fb;}
+.imitSelectTip .tipArrow1{ bottom:-14px; margin-left:-7px; border-width:7px; border-top-color:#7fcdee; }
+/*------ 模拟下拉框  end ------*/

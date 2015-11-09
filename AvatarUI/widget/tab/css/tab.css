@@ -1,0 +1,42 @@
+/**
+ * AvatarUI-tab
+ * @version v2.0.1
+ * @author  Rocky(296456018@qq.com)
+ * @date    2013-04-25
+ */
+
+/*------ tab start ------*/
+.tab .tabNav{ height:28px; padding-left:5px; border-bottom:1px solid #8DB2E3;}
+.tab .tabNav ul{ float:left; }
+.tab .tabNav li{ position:relative; float:left; height:27px; margin:0 5px -1px 5px;  border:1px solid #8DB2E3;
+	border-top-left-radius:3px;
+	border-top-right-radius:3px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-topright:3px;
+	-webkit-border-top-left-radius:3px;
+	-webkit-border-top-right-radius:3px;
+	-o-border-top-left-radius:3px;
+	-o-border-top-right-radius:3px;
+}
+.tab .tabNav li a{ display:inline-block; *zoom:1; *display:line; height:27px; line-height:27px; padding:0 15px; background:url(../images/tab_enabled.png);  white-space:nowrap;
+	border-top-left-radius:3px;
+	border-top-right-radius:3px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-topright:3px;
+	-webkit-border-top-left-radius:3px;
+	-webkit-border-top-right-radius:3px;
+	-o-border-top-left-radius:3px;
+	-o-border-top-right-radius:3px;
+	
+	font-size:14px;
+}
+.tab .tabNav li a:hover{ background:url(../images/tab_active.png); text-decoration:none;}
+.tab .tabNav li a:focus{ outline:none;}
+.tab .tabNav li.active{ border-bottom:1px solid #fff;}
+.tab .tabNav li.active a{ background:url(../images/tab_active.png); font-weight:bold;}
+.tab .tabNav li .tabDel{ position:absolute; top:0; right:5px; width:10px; heigth:10px; cursor:pointer; color:#777;}
+.tab .tabNav li .tabDel:hover{ color:red;}
+
+.tab .tabNav .addTab{ float:left; margin-left:10px; display:inline; line-height:26px;}
+.tab .tabCon{ display:none; padding:10px; border:1px solid #8DB2E3; border-top:0; }
+/*------ tab end ------*/

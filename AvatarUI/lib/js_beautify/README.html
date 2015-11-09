@@ -1,0 +1,17 @@
+<h1 id="JS_Beautifier">JS Beautifier</h1><p>…or, more specifically, all of the code powering<br><a href="http://jsbeautifier.org/">jsbeautifier.org</a>.</p>
+<p>This little beautifier will reformat and reindent bookmarklets, ugly<br>JavaScript, unpack scripts packed by Dean Edward’s popular packer,<br>as well as deobfuscate scripts processed by<br><a href="http://javascriptobfuscator.com/">javascriptobfuscator.com</a>.</p>
+<p>To beautify from the command-line you can use provided python script/library.</p>
+<p><code>./js-beautify file.js</code> beautifies a file, output goes to <code>stdout</code>.</p>
+<p>To use <code>jsbeautifier</code> as a library is simple:</p>
+<pre><code class="python"><span class="keyword">import</span> jsbeautifier
+res = jsbeautifier.beautify(<span class="string">'your javascript string'</span>)
+res = jsbeautifier.beautify_file(<span class="string">'some_file.js'</span>)
+</code></pre>
+<p>…or, to specify some options:</p>
+<pre><code class="python">opts = jsbeautifier.default_options()
+opts.indent_size = <span class="number">2</span>
+res = jsbeautifier.beautify(<span class="string">'some javascript'</span>, opts)
+</code></pre>
+<p>You are free to use this in any way you want, in case you find this<br>useful or working for you.</p>
+<p>Written by Einar Lielmanis, <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x65;&#105;&#110;&#x61;&#114;&#64;&#106;&#x73;&#98;&#101;&#97;&#x75;&#116;&#105;&#102;&#x69;&#101;&#x72;&#46;&#x6f;&#114;&#x67;">&#x65;&#105;&#110;&#x61;&#114;&#64;&#106;&#x73;&#98;&#101;&#97;&#x75;&#116;&#105;&#102;&#x69;&#101;&#x72;&#46;&#x6f;&#114;&#x67;</a><br>Python version flourished by Stefano Sanfilippo <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#x2e;&#108;&#x69;&#x74;&#116;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#100;&#101;&#x72;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#97;&#x2e;&#108;&#x69;&#x74;&#116;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#100;&#101;&#x72;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>Thanks to Jason Diamond, Patrick Hof, Nochum Sossonko, Andreas Schneider, Dave<br>Vasilevsky, Vital Batmanov, Ron Baldwin, Gabriel Harrison, Chris J. Shull,<br>Mathias Bynens and others.</p>

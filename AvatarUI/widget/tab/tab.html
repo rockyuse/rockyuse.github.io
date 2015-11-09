@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选项卡组件---AvatarUI</title>
+<link rel="stylesheet" href="../../css/global.css"/>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+<script type="text/javascript" src="js/tab.js"></script>
+<link rel="stylesheet" href="css/tab.css" />
+
+<script type="text/javascript">
+$(function(){
+    /*------ 实例化 ------*/
+    // 点击切换
+    $('#Tab_1').Tab({});
+
+ 	// 划过切换
+    $('#Tab_2').Tab({
+    	changeType: "mouseenter"
+    });
+
+ 	// 切换回调
+    $('#Tab_3').Tab({
+    	activeCallback: function(i){
+			alert("点击了第 "+(i+1)+" 个选项卡");
+    	}
+    });
+
+ 	// 删除选项卡
+    $('#Tab_4').Tab({
+        delTab: true,
+        delCallback: function(index){
+    		alert("删除了第 "+(index+1)+" 个选项卡");
+    	}
+    });
+
+ 	// 添加新选项卡
+    $('#Tab_5').Tab({
+        addTab: true,
+    	addCallback: function(index){
+    		$('#Tab_5').find('.tab li a').eq(index).html('选项卡'+(index+1));
+    		$('#Tab_5').find('.tabCon').eq(index).html('新添加的选项卡内容'+(index+1));
+    	}
+    });
+});
+</script>
+
+</head>
+<body>
+<div class="header">
+	<div class="headerCon">
+		<a href="/AvatarUI" class="logo"></a>
+		<div class="nav">
+			<ul>
+				<li><a href="javascript:;">首页</a></li>
+				<li><a href="javascript:;">团队介绍</a></li>
+				<li class="active"><a href="/AvatarUI">AvatarX JS</a></li>
+				<li><a href="javascript:;">产品</a></li>
+				<li><a href="javascript:;">Avatar文档</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="wrap clearfix">
+    <div class="leftMenu">
+		<dl>
+			<dt><a href="../../index.html">返回首页</a></dt>
+		</dl>
+		
+		<dl class="menu">
+			<dt>选项卡</dt>
+			<dd>
+				<a href="javascript:;">点击切换</a>
+				<a href="javascript:;">划过切换</a>
+				<a href="javascript:;">切换回调</a>
+				<a href="javascript:;">删除选项卡</a>
+				<a href="javascript:;">添加新选项卡</a>
+			</dd>
+		</dl>
+	</div>
+    
+    <div class="mainCon">
+        <div class="items" id="Item0">
+            <h2>点击切换</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+            
+            	<div class="tab" id="Tab_1">
+		            <div class="tabNav">
+						<ul>
+							<li><a href="javascript:;">选项卡1</a></li>
+							<li><a href="javascript:;">选项卡2</a></li>
+							<li><a href="javascript:;">选项卡3</a></li>
+							<li><a href="javascript:;">选项卡4</a></li>
+							<li><a href="javascript:;">选项卡5</a></li>
+							<li><a href="javascript:;">选项卡6</a></li>
+							<li><a href="javascript:;">选项卡7</a></li>
+						</ul>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#0F4DA8; line-height: 150px;">选项卡内容_1</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FFCB00; line-height: 150px;">选项卡内容_2</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_3</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_4</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_5</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_6</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_7</div>
+					</div>
+				</div>
+    	        
+   	        
+	            <pre class="brush:js">
+		            $('#Tab_1').Tab({});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item1">
+	        <h2>划过切换</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div class="tab" id="Tab_2">
+		            <div class="tabNav">
+						<ul>
+							<li><a href="javascript:;">选项卡1</a></li>
+							<li><a href="javascript:;">选项卡2</a></li>
+							<li><a href="javascript:;">选项卡3</a></li>
+						</ul>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#0F4DA8; line-height: 150px;">选项卡内容_1</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FFCB00; line-height: 150px;">选项卡内容_2</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_3</div>
+					</div>
+				</div>
+				
+				
+	            <pre class="brush:js">
+                    $('#Tab_2').Tab({
+				    	changeType: "mouseenter"
+				    });
+                </pre>
+
+	        </div>
+        </div>
+	    
+	    
+	    <div class="items" id="Item2">
+	        <h2>切换回调</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div class="tab" id="Tab_3">
+		            <div class="tabNav">
+						<ul>
+							<li><a href="javascript:;">选项卡1</a></li>
+							<li><a href="javascript:;">选项卡2</a></li>
+							<li><a href="javascript:;">选项卡3</a></li>
+						</ul>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#0F4DA8; line-height: 150px;">选项卡内容_1</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FFCB00; line-height: 150px;">选项卡内容_2</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_3</div>
+					</div>
+				</div>
+
+	            <pre class="brush:js">
+                    $('#Tab_3').Tab({
+				    	activeCallback: function(i){
+							alert("点击了第 "+(i+1)+" 个选项卡");
+				    	}
+				    });
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item3">
+	        <h2>删除选项卡&&回调</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div class="tab" id="Tab_4">
+		            <div class="tabNav">
+						<ul>
+							<li><a href="javascript:;">选项卡1</a></li>
+							<li><a href="javascript:;">选项卡2</a></li>
+							<li><a href="javascript:;">选项卡3</a></li>
+							<li><a href="javascript:;">选项卡4</a></li>
+							<li><a href="javascript:;">选项卡5</a></li>
+							<li><a href="javascript:;">选项卡6</a></li>
+							<li><a href="javascript:;">选项卡7</a></li>
+						</ul>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#0F4DA8; line-height: 150px;">选项卡内容_1</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FFCB00; line-height: 150px;">选项卡内容_2</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_3</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_4</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_5</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_6</div>
+					</div>
+					<div class="tabCon" style="display:none;">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_7</div>
+					</div>
+				</div>
+
+	            <pre class="brush:js">
+                    $('#Tab_4').Tab({
+				        delTab: true,
+				        delCallback: function(index){
+				    		alert("删除了第 "+(index+1)+" 个选项卡");
+				    	}
+				    });
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item4">
+	        <h2>添加新选项卡</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div class="tab" id="Tab_5">
+		            <div class="tabNav">
+						<ul>
+							<li><a href="javascript:;">选项卡1</a></li>
+							<li><a href="javascript:;">选项卡2</a></li>
+							<li><a href="javascript:;">选项卡3</a></li>
+						</ul>
+						<a href="javascript:;" class="addTab"> + 添加新选项卡</a>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#0F4DA8; line-height: 150px;">选项卡内容_1</div>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#FFCB00; line-height: 150px;">选项卡内容_2</div>
+					</div>
+					<div class="tabCon">
+						<div style="font-size:24px; color:#FF6400; line-height: 150px;">选项卡内容_3</div>
+					</div>
+				</div>
+
+	            <pre class="brush:js">
+                    $('#Tab_5').Tab({
+				        addTab: true,
+				    	addCallback: function(index){
+				    		$('#Tab_5').find('.tab li a').eq(index).html('选项卡'+(index+1));
+				    		$('#Tab_5').find('.tabCon').eq(index).html('新添加的选项卡内容'+(index+1));
+				    	}
+				    });
+                </pre>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="footer">AvatarUI</div><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-30799313-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+</body>
+</html>

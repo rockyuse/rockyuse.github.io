@@ -1,0 +1,866 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>表格组件---AvatarUI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/datagrid.css" />
+<script type="text/javascript" src="js/datagrid.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    //实例化
+    //默认表格
+	$('#GetData0').click(function(){
+		$('#DataGrid0').Datagrid({
+			conDivAuto: true,
+			dgAutoHeight: true,
+			columns:[
+						{field: 'name', title: '姓名', width: 120, align: 'left'},
+						{field: 'email', title: '邮箱', width: 100, align: 'left'},
+						{field: 'score', title: '得分', width: 100, align: 'center'},
+						{field: 'date', title: '日期', width: 100, align: 'center'}
+					],
+			url: '../../student/studentList.do'
+		});
+	});
+	
+	//自定义表格宽高
+	$('#GetData1').click(function(){
+		$('#DataGrid1').Datagrid({
+			width: 600,
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do'
+		});
+	});
+	
+	//表格列宽自动缩放
+	$('#GetData2').click(function(){
+		$('#DataGrid2').Datagrid({
+			autoWidth: true,
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do'
+		});
+	});
+	
+	//自定义扩展列
+	$('#GetData3').click(function(){
+		$('#DataGrid3').Datagrid({
+			columns:[
+						{field: 'select', title: '选择', width: 60, align: 'center', formatter: function(row){
+								return '<input type="checkbox" thisId="'+row.id+'" />';
+							} 
+						},
+						{field: 'name', title: '姓名', width: 100, align: 'left'},
+						{field: 'email', title: '邮箱', width: 100, align: 'left'},
+						{field: 'score', title: '得分', width: 100, align: 'center'},
+						{field: 'date', title: '日期', width: 100, align: 'center'},
+						{field: 'detail', title: '详情', width: 50, align: 'center', formatter: function(row){
+								return '<a href="javascript:;" onclick="alert('+row.id+')"><img src="images/icon_detail.png"/></a>';
+							} 
+						},
+						{field: 'qingkuang', title: '得分情况', width: 100, align: 'center', formatter: function(row){
+								if(row.score < 500){
+									return '<font color="red">差</font>';
+								}else if(row.score > 500 && row.score < 1000){
+									return '一般';
+								}else{
+									return '优秀';
+								}
+							} 
+						}
+					],
+			url: '../../student/studentList.do'
+		});
+	});
+	
+	//执行回调
+	$('#GetData4').click(function(){
+		$('#DataGrid4').Datagrid({
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do',
+			ajaxCallback: function(data, self){alert('ajax返回回调')},  //ajax返回后执行回调
+			initCallback: function(self){alert('表格数据加载完毕')}     //表格加载完毕执行回调
+		});
+	});
+	
+	//自定义显示行数
+	$('#GetData5').click(function(){
+		$('#DataGrid5').Datagrid({
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do',
+			pageRowList: [30,50,80,100,200],  //每页显示的行数
+			pageRowSelected: 30             //默认选中的行数
+		});
+	});
+	
+	//列排序-请求后台排序
+	$('#GetData6').click(function(){
+		$('#DataGrid6').Datagrid({
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left', sortable: true},
+						{field: 'email', title: '邮箱', width: 150, align: 'left', sortable: true},
+						{field: 'score', title: '得分', width: 200, align: 'center', sortable: true},
+						{field: 'date', title: '日期', width: 150, align: 'center', sortable: true}
+					],
+			url: '../../student/studentList.do',
+			sortType: "ajax",          //设置排序方式，ajax是请求后台排序，local是本页表格内容排序
+			sortRule: "desc",           //升序
+			sortOrderBy: "score"       //设置根据那一列来排序
+		});
+	});
+	
+	//列排序-js本页排序
+	$('#GetData7').click(function(){
+		$('#DataGrid7').Datagrid({
+			columns:[
+						{field:'name', title:'姓名', width:150, align:'left', dataType: 'string'},
+						{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string'},
+						{field:'score', title:'得分', width:200, align:'center', dataType: 'int'},
+						{field:'date', title:'日期', width:150, align:'center', dataType: 'date'}
+					],
+			url: '../../student/studentList.do',
+			sortType: "local",          //设置排序方式，ajax是请求后台排序，local是本页表格内容排序
+			sortRule: "desc"           //升序
+		});
+	});
+	
+	//自定义提示语
+	$('#GetData8').click(function(){
+		$('#DataGrid8').Datagrid({
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do',
+			loadingMsg: "自定义的数据加载中。。。",  			//加载提示语
+			errorMsg: "自定义服务器错误！",    				//服务器报错提示
+			timeout: 60000,             				//设置超时时间
+			timeoutMsg: "自定义数据量太大，暂时无法查询出来！"  //查询超时提示
+		});
+	});
+	
+	//大数据量测试
+	$('#GetData9').click(function(){
+		$('#DataGrid9').Datagrid({
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			url: '../../student/studentList.do',
+			pageRowList: [100,500,1000,2000]
+		});
+	});
+
+	//静态数据
+	$('#GetData10').click(function(){
+		$('#DataGrid10').Datagrid({
+			hasFirstCol: true, //是否显示表格序列号
+			firstColWidth: 120,
+			firstColHeaderName: "日期/型号",
+			firstColData: ["2012-01-13","2012-01-14","2012-01-15","2012-01-16","2012-01-17","2012-01-18","2012-01-19"],
+			
+			staticData: [
+							[1,2,3,4,5],
+							[6,7,8,9,10],
+							[,12,13,14,15],
+							[16,17,18,19,20],
+							[21,22,23,24,25],
+							[26,27,28,29,30],
+							[31,32,33,34,35]
+						],
+			columns:[
+						{field:'name', title:'1G', width:150, align:'left'},
+						{field:'email', title:'2G', width:150, align:'left'},
+						{field:'score', title:'3G', width:200, align:'center'},
+						{field:'date', title:'4G', width:150, align:'center'},
+						{field:'date', title:'5G', width:150, align:'center'}
+					],
+			showFooter: false
+		});
+	});
+
+
+	// 表格头分割
+	$('#GetData11').click(function(){
+		$('#DataGrid11').Datagrid({
+			url: '../../student/studentList.do',
+			hasFirstCol: true,
+			height: 330,
+			firstColWidth: 150,
+			firstColHeaderName: "周数/指标",
+			headerColspan: [
+							{title: '学生信息', colspan:'2', align:'center'},
+							{title: '分数信息', colspan:'2', align:'center'}
+						],
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			
+			showFooter: false
+		});
+	});
+
+
+	// 表格第一列分割
+	$('#GetData12').click(function(){
+		$('#DataGrid12').Datagrid({
+			url: "../../student/studentListFirstColSeparation.do",
+			height: 320,
+			hasFirstCol: true, //是否显示表格序列号
+			firstColWidth: 180,
+			firstColHeaderName: "日期/型号",
+			firstRowspan: [
+							{title:'下载量', colspan:'3', align:'center'},
+							{title:'用户数', colspan:'3', align:'center'},
+							{title:'应用数', colspan:'3', align:'center'},
+							{title:'活跃用户数', colspan:'3', align:'center'},
+							{title:'签约开发者数', colspan:'3', align:'center'}
+						],
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					]
+		});
+	});
+
+	//表格拉伸
+	$('#GetData13').click(function(){
+		$('#DataGrid13').Datagrid({
+			url: '../../student/studentList.do',
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			dgResize: true
+		});
+	});
+
+	//行高度根据内容自动伸缩
+	$('#GetData14').click(function(){
+		$('#DataGrid14').Datagrid({
+			url: '../../student/studentList.do',
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			conDivAuto: true
+		});
+	});
+
+	//表格高度根据内容自动伸缩
+	$('#GetData15').click(function(){
+		$('#DataGrid15').Datagrid({
+			url: '../../student/studentList.do',
+			columns:[
+						{field: 'name', title: '姓名', width: 150, align: 'left'},
+						{field: 'email', title: '邮箱', width: 150, align: 'left'},
+						{field: 'score', title: '得分', width: 200, align: 'center'},
+						{field: 'date', title: '日期', width: 150, align: 'center'}
+					],
+			dgAutoHeight: true
+		});
+	});
+
+});
+</script>
+</head>
+<body>
+<div class="header">
+	<div class="headerCon">
+		<a href="/AvatarUI" class="logo"></a>
+		<div class="nav">
+			<ul>
+				<li><a href="javascript:;">首页</a></li>
+				<li><a href="javascript:;">团队介绍</a></li>
+				<li class="active"><a href="/AvatarUI">AvatarX JS</a></li>
+				<li><a href="javascript:;">产品</a></li>
+				<li><a href="javascript:;">Avatar文档</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="wrap clearfix">
+    <div class="leftMenu">
+		<dl>
+			<dt><a href="../../index.html">返回首页</a></dt>
+		</dl>
+		
+		<dl class="menu">
+			<dt>表格</dt>
+			<dd>
+				<a href="javascript:;">默认表格</a>
+				<a href="javascript:;">自定义表格宽高</a>
+				<a href="javascript:;">表格列宽自动缩放</a>
+				<a href="javascript:;">自定义扩展列</a>
+				<a href="javascript:;">执行回调</a>
+				<a href="javascript:;">自定义显示行数</a>
+				<a href="javascript:;">列排序-请求后台排序</a>
+				<a href="javascript:;">列排序-js本页排序</a>
+				<a href="javascript:;">自定义提示语</a>
+				<a href="javascript:;">大数据量测试</a>
+				<a href="javascript:;">静态数据</a>
+				<a href="javascript:;">表格头分割</a>
+				<a href="javascript:;">表格第一列分割</a>
+				<a href="javascript:;">表格拉伸</a>
+				<a href="javascript:;">行高度根据内容自动伸缩</a>
+				<a href="javascript:;">表格高度根据内容自动伸缩</a>
+			</dd>
+		</dl>
+	</div>
+    
+    <div class="mainCon">
+        <div class="items" id="Item0">
+			<h2>默认表格</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+				<input type="button" id="GetData0" value="显示表格" />
+				<div id="DataGrid0"></div>
+
+	            <pre class="brush:js">
+	            	width: "",    //表格宽度设置，默认为 auto
+					height: 300,  //表格高度设置，默认为300
+					columns: [],  //定义列参数
+					/*
+					[
+						{field:'select', title:'选择', width:150, align:'center', formatter:function(row){
+								return '<input type="checkbox" thisId="'+row.id+'" />';
+							} 
+						},
+						{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+						{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+						{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+						{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true},
+						{field:'detail', title:'详情', width:50, align:'center', formatter:function(row){
+								return '<a href="javascript:;" onclick="alert('+row.id+')"><img src="images/icon_detail.png"/></a>';
+							} 
+						}
+					]
+					*/
+				
+					url: "",                     //请求的url
+					method: "POST",              //可选项："POST","GET"
+					dataParam: {"a":1,"b":2},    //向后台传参数
+					callback: function(){},      //表格加载完毕执行回调
+					ajaxCallback: function(){},  //ajax返回后执行回调
+					
+					pageRowList: [10,20,30,50,100],  //每页显示的行数
+					pageRowSelected: 10,             //默认选中的行数
+					
+					sortType: "local",          //设置排序方式，ajax是请求后台排序，local是本页表格内容排序
+					sortRule: "desc",           //升序
+					sortOrderBy: "score",       //设置根据那一列来排序
+					
+					autoWidth: false,           //表格宽度是否根据自动拉伸
+					gapWidth: 9,                //表格头部td的左右padding加边框宽度
+					
+					loadingMsg: "数据加载中。。。",  			//加载提示语
+					errorMsg: "服务器错误！",    				//服务器报错提示
+					timeout: 60000,             				//设置超时时间
+					timeoutMsg: "数据量太大，暂时无法查询出来！"  //查询超时提示
+					
+					
+					//默认
+		            $('#GetData0').click(function(){
+						$('#DataGrid0').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do'
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item1">
+	        <h2>自定义表格宽高</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData1" value="显示表格" />
+				<div id="DataGrid1"></div>
+
+	            <pre class="brush:js">
+                    //自定义表格宽高
+					$('#GetData1').click(function(){
+						$('#DataGrid1').Datagrid({
+							width: 600,
+							height: 250,
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do'
+						});
+					});
+                </pre>
+
+	        </div>
+        </div>
+	    
+	    
+	    <div class="items" id="Item2">
+	        <h2>表格列宽自动缩放</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData2" value="显示表格" />
+				<div id="DataGrid2"></div>
+
+	            <pre class="brush:js">
+                    //表格列宽自动缩放
+					$('#GetData2').click(function(){
+						$('#DataGrid2').Datagrid({
+							autoWidth: true,
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do'
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item3">
+	        <h2>自定义扩展列</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData3" value="显示表格" />
+				<div id="DataGrid3"></div>
+
+	            <pre class="brush:js">
+                    //自定义扩展列
+					$('#GetData3').click(function(){
+						$('#DataGrid3').Datagrid({
+							columns:[
+										{field:'select', title:'选择', width:150, align:'center', formatter:function(row){
+												return '<input type="checkbox" thisId="'+row.id+'" />';
+											} 
+										},
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true},
+										{field:'detail', title:'详情', width:50, align:'center', formatter:function(row){
+												return '<a href="javascript:;" onclick="alert('+row.id+')"><img src="images/icon_detail.png"/></a>';
+											} 
+										}
+									],
+							url: '../../student/studentList.do'
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item4">
+	        <h2>执行回调</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData4" value="显示表格" />
+				<div id="DataGrid4"></div>
+
+	            <pre class="brush:js">
+                    //执行回调
+					$('#GetData4').click(function(){
+						$('#DataGrid4').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							ajaxCallback: function(data, self){alert('ajax返回回调')},  //ajax返回后执行回调
+							initCallback: function(self){alert('表格数据加载完毕')}     //表格加载完毕执行回调
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item5">
+	        <h2>自定义显示行数</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData5" value="显示表格" />
+				<div id="DataGrid5"></div>
+
+	            <pre class="brush:js">
+                    //自定义显示行数
+					$('#GetData5').click(function(){
+						$('#DataGrid5').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							pageRowList: [30,50,80,100,200],  //每页显示的行数
+							pageRowSelected: 30             //默认选中的行数
+						});
+					});
+                </pre>
+
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item6">
+	        <h2>列排序-请求后台排序</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData6" value="显示表格" />
+				<div id="DataGrid6"></div>
+
+	            <pre class="brush:js">
+                    //列排序-请求后台排序
+					$('#GetData6').click(function(){
+						$('#DataGrid6').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							sortType: "ajax",          //设置排序方式，ajax是请求后台排序，local是本页表格内容排序
+							sortRule: "desc",           //升序
+							sortOrderBy: "score"       //设置根据那一列来排序
+						});
+					});
+                </pre>
+
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item7">
+	        <h2>列排序-js本页排序</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData7" value="显示表格" />
+				<div id="DataGrid7"></div>
+
+	            <pre class="brush:js">
+                    //列排序-js本页排序
+					$('#GetData7').click(function(){
+						$('#DataGrid7').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							sortType: "local",          //设置排序方式，ajax是请求后台排序，local是本页表格内容排序
+							sortRule: "desc"           //升序
+						});
+					});
+                </pre>
+
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item8">
+	        <h2>自定义提示语</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData8" value="显示表格" />
+				<div id="DataGrid8"></div>
+
+	            <pre class="brush:js">
+                    //自定义提示语
+					$('#GetData8').click(function(){
+						$('#DataGrid8').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							loadingMsg: "自定义的数据加载中。。。",  			//加载提示语
+							errorMsg: "自定义服务器错误！",    				//服务器报错提示
+							timeout: 60000,             				//设置超时时间
+							timeoutMsg: "自定义数据量太大，暂时无法查询出来！"  //查询超时提示
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item9">
+	        <h2>大数据量测试</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData9" value="显示表格" />
+				<div id="DataGrid9"></div>
+
+	            <pre class="brush:js">
+                    //大数据量测试
+					$('#GetData9').click(function(){
+						$('#DataGrid9').Datagrid({
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							url: '../../student/studentList.do',
+							pageRowList: [100,500,1000,2000]
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item10">
+	        <h2>静态数据</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData10" value="显示表格" />
+				<div id="DataGrid10"></div>
+
+	            <pre class="brush:js">
+	            	//静态数据	
+                    $('#GetData10').click(function(){
+						$('#DataGrid10').Datagrid({
+							hasFirstCol: true, //是否显示表格序列号
+							firstColWidth: 120,
+							firstColHeaderName: "日期/型号",
+							firstColData: ["2012-01-13","2012-01-14","2012-01-15","2012-01-16","2012-01-17","2012-01-18","2012-01-19"],
+							
+							staticData: [
+											[1,2,3,4,5],
+											[6,7,8,9,10],
+											[11,12,13,14,15],
+											[16,17,18,19,20],
+											[21,22,23,24,25],
+											[26,27,28,29,30],
+											[31,32,33,34,35]
+										],
+							columns:[
+										{field:'name', title:'1G', width:150, align:'left'},
+										{field:'email', title:'2G', width:150, align:'left'},
+										{field:'score', title:'3G', width:200, align:'center'},
+										{field:'date', title:'4G', width:150, align:'center'},
+										{field:'date', title:'5G', width:150, align:'center'}
+									],
+							showFooter: false
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item11">
+	        <h2>表格头分割</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData11" value="显示表格" />
+				<div id="DataGrid11"></div>
+
+	            <pre class="brush:js">
+	            	// 表格头分割
+					$('#GetData11').click(function(){
+						$('#DataGrid11').Datagrid({
+							url: '../../student/studentList.do',
+							hasFirstCol: true,
+							height: 330,
+							firstColWidth: 150,
+							firstColHeaderName: "周数/指标",
+							headerColspan: [
+											{title: '学生信息', colspan:'2', align:'center'},
+											{title: '分数信息', colspan:'2', align:'center'}
+										],
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							
+							showFooter: false
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item12">
+	        <h2>表格第一列分割</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData12" value="显示表格" />
+				<div id="DataGrid12"></div>
+
+	            <pre class="brush:js">
+	            	// 表格第一列分割
+					$('#GetData12').click(function(){
+						$('#DataGrid12').Datagrid({
+							url: "../../student/studentListFirstColSeparation.do",
+							height: 320,
+							hasFirstCol: true, //是否显示表格序列号
+							firstColWidth: 180,
+							firstColHeaderName: "日期/型号",
+							firstRowspan: [
+											{title:'下载量', colspan:'3', align:'center'},
+											{title:'用户数', colspan:'3', align:'center'},
+											{title:'应用数', colspan:'3', align:'center'},
+											{title:'活跃用户数', colspan:'3', align:'center'},
+											{title:'签约开发者数', colspan:'3', align:'center'}
+										],
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									]
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item13">
+	        <h2>表格拉伸</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData13" value="显示表格" />
+				<div id="DataGrid13"></div>
+
+	            <pre class="brush:js">
+	            	// 表格第一列分割
+					$('#GetData12').click(function(){
+						$('#DataGrid12').Datagrid({
+							url: '../../student/studentList.do',
+							height: 320,
+							hasFirstCol: true, //是否显示表格序列号
+							firstColWidth: 180,
+							firstColHeaderName: "日期/型号",
+							firstRowspan: [
+											{title:'下载量', colspan:'3', align:'center'},
+											{title:'用户数', colspan:'3', align:'center'},
+											{title:'应用数', colspan:'3', align:'center'},
+											{title:'活跃用户数', colspan:'3', align:'center'},
+											{title:'签约开发者数', colspan:'3', align:'center'}
+										],
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									]
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    
+	    <div class="items" id="Item14">
+	        <h2>行高度根据内容自动伸缩</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData14" value="显示表格" />
+				<div id="DataGrid14"></div>
+
+	            <pre class="brush:js">
+	            	//行高度根据内容自动伸缩
+					$('#GetData14').click(function(){
+						$('#DataGrid14').Datagrid({
+							url: '../../student/studentList.do',
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							conDivAuto: true
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item15">
+	        <h2>表格高度根据内容自动伸缩</h2>
+	        <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <input type="button" id="GetData15" value="显示表格" />
+				<div id="DataGrid15"></div>
+
+	            <pre class="brush:js">
+					//表格高度根据内容自动伸缩
+					$('#GetData15').click(function(){
+						$('#DataGrid15').Datagrid({
+							url: '../../student/studentList.do',
+							columns:[
+										{field:'name', title:'姓名', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'email', title:'邮箱', width:150, align:'left', dataType: 'string', sortable:true},
+										{field:'score', title:'得分', width:200, align:'center', dataType: 'int', sortable:true},
+										{field:'date', title:'日期', width:150, align:'center', dataType: 'date', sortable:true}
+									],
+							dgAutoHeight: true
+						});
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+
+	</div>
+</div>
+<div class="footer">AvatarUI</div><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-30799313-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+</body>
+</html>

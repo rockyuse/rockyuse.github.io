@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		.my_clip_button { width:50px; height:14px; text-align:center; background-color:#fff; cursor:default; font-size:12px; color:blue;}
+	</style>
+	<script type="text/javascript" src="ZeroClipboard.js"></script>
+	<script language="JavaScript">
+		function $(id) { return document.getElementById(id); }
+
+		function clipFn() {
+			var clips = $('CopyTable').getElementsByTagName('tr');
+			for(var i = 1; i <= clips.length; i++){
+				var clip = null;
+				clip = new ZeroClipboard.Client();
+
+				clip.setHandCursor( true );
+				clip.setText($('CopyCon_'+i).innerHTML);
+				clip.addEventListener('complete', function (client, text) {
+					alert("复制成功!");
+				});
+				clip.glue('d_clip_button_'+i, 'd_clip_container_'+i);
+			}
+		}
+
+		window.onload = function(){
+			clipFn();
+		}
+	</script>
+</head>
+<body>
+<table id="CopyTable" border="1">
+	<tr>
+		<td><div id="CopyCon_1">Copy me1111</div></td>
+		<td>
+			<div id="d_clip_container_1" style="position:relative">
+				<div id="d_clip_button_1" class="my_clip_button">复制内容</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td><div id="CopyCon_2">Copy me2222</div></td>
+		<td>
+			<div id="d_clip_container_2" style="position:relative">
+				<div id="d_clip_button_2" class="my_clip_button">复制内容</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td><div id="CopyCon_3">Copy me3333</div></td>
+		<td>
+			<div id="d_clip_container_3" style="position:relative">
+				<div id="d_clip_button_3" class="my_clip_button">复制内容</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td><div id="CopyCon_4">Copy me4444</div></td>
+		<td>
+			<div id="d_clip_container_4" style="position:relative">
+				<div id="d_clip_button_4" class="my_clip_button">复制内容</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td><div id="CopyCon_5">Copy me5555</div></td>
+		<td>
+			<div id="d_clip_container_5" style="position:relative">
+				<div id="d_clip_button_5" class="my_clip_button">复制内容</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<textarea style="width:200px; height:100px;"></textarea>
+</body>
+</html>
