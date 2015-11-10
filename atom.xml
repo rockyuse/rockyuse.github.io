@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[斯达巴克斯]]></title>
+  <subtitle><![CDATA[study]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://rockyuse.github.io/"/>
+  <updated>2015-11-10T08:24:58.429Z</updated>
+  <id>http://rockyuse.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Rocky]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://rockyuse.github.io/2015/11/10/hello-world/"/>
+    <id>http://rockyuse.github.io/2015/11/10/hello-world/</id>
+    <published>2015-11-10T08:24:58.429Z</published>
+    <updated>2015-11-10T08:24:58.429Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var WebSocketServer = require(<span class="string">'ws'</span>).Server;</span><br><span class="line">var wss = new WebSocketServer(&#123;port: <span class="number">8080</span>&#125;);</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">"connection"</span>, <span class="keyword">function</span>(socket) &#123;</span><br><span class="line">    socket.on(<span class="string">"message"</span>, <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">        console.log(msg);</span><br><span class="line">        socket.send(<span class="string">"Nice to meet you!"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    </summary>
+    
+      <category term="tag1" scheme="http://rockyuse.github.io/tags/tag1/"/>
+    
+      <category term="category2" scheme="http://rockyuse.github.io/categories/category2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[test]]></title>
+    <link href="http://rockyuse.github.io/2015/11/05/test/"/>
+    <id>http://rockyuse.github.io/2015/11/05/test/</id>
+    <published>2015-11-05T09:14:39.000Z</published>
+    <updated>2015-11-10T08:24:30.915Z</updated>
+    <content type="html"><![CDATA[<h2 id="abcdefg">abcdefg</h2><h1 id="阿打算打">阿打算打</h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="abcdefg">abcdefg</h2><h1 id="阿打算打">阿打算打</h1>]]>
+    </summary>
+    
+      <category term="js" scheme="http://rockyuse.github.io/tags/js/"/>
+    
+      <category term="category1" scheme="http://rockyuse.github.io/categories/category1/"/>
+    
+  </entry>
+  
+</feed>
