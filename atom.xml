@@ -4,7 +4,7 @@
   <subtitle><![CDATA[study]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://rockyuse.github.io/"/>
-  <updated>2015-11-10T08:24:58.429Z</updated>
+  <updated>2015-11-10T09:00:42.273Z</updated>
   <id>http://rockyuse.github.io/</id>
   
   <author>
@@ -18,8 +18,8 @@
     <title><![CDATA[Hello World]]></title>
     <link href="http://rockyuse.github.io/2015/11/10/hello-world/"/>
     <id>http://rockyuse.github.io/2015/11/10/hello-world/</id>
-    <published>2015-11-10T08:24:58.429Z</published>
-    <updated>2015-11-10T08:24:58.429Z</updated>
+    <published>2015-11-10T09:00:42.273Z</published>
+    <updated>2015-11-10T09:00:42.273Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
@@ -35,7 +35,7 @@
     <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
     </summary>
     
-      <category term="tag1" scheme="http://rockyuse.github.io/tags/tag1/"/>
+      <category term="tag3" scheme="http://rockyuse.github.io/tags/tag3/"/>
     
       <category term="category2" scheme="http://rockyuse.github.io/categories/category2/"/>
     
@@ -46,13 +46,13 @@
     <link href="http://rockyuse.github.io/2015/11/05/test/"/>
     <id>http://rockyuse.github.io/2015/11/05/test/</id>
     <published>2015-11-05T09:14:39.000Z</published>
-    <updated>2015-11-10T08:24:30.915Z</updated>
+    <updated>2015-11-10T09:00:40.864Z</updated>
     <content type="html"><![CDATA[<h2 id="abcdefg">abcdefg</h2><h1 id="阿打算打">阿打算打</h1>]]></content>
     <summary type="html">
     <![CDATA[<h2 id="abcdefg">abcdefg</h2><h1 id="阿打算打">阿打算打</h1>]]>
     </summary>
     
-      <category term="js" scheme="http://rockyuse.github.io/tags/js/"/>
+      <category term="tag4" scheme="http://rockyuse.github.io/tags/tag4/"/>
     
       <category term="category1" scheme="http://rockyuse.github.io/categories/category1/"/>
     
