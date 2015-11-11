@@ -1,108 +1,42 @@
-function getNav() {
-  var mainNav = $('ul.main-navigation, ul[role=main-navigation]').before('<fieldset class="mobile-nav">');
-  var mobileNav = $('fieldset.mobile-nav').append('<select>');
-  mobileNav.find('select').append('<option value="">Navigate&hellip;</option>');
-  var addOption = function(i, option) {
-    mobileNav.find('select').append('<option value="' + this.href + '">&raquo; ' + $(this).text() + '</option>');
-  };
-  mainNav.find('a').each(addOption);
-  $('ul.subscription a').each(addOption);
-  mobileNav.find('select').bind('change', function(event) {
-    if (event.target.value) { window.location.href = event.target.value; }
-  });
-}
+(function($){
 
-function addSidebarToggler() {
-  if(!$('body').hasClass('sidebar-footer')) {
-    $('#content').append('<span class="toggle-sidebar"></span>');
-    $('.toggle-sidebar').bind('click', function(e) {
-      e.preventDefault();
-      $('body').toggleClass('collapse-sidebar');
-    });
-  }
-  var sections = $('aside.sidebar > section');
-  if (sections.length > 1) {
-    sections.each(function(index, section){
-      if ((sections.length >= 3) && index % 3 === 0) {
-        $(section).addClass("first");
-      }
-      var count = ((index +1) % 2) ? "odd" : "even";
-      $(section).addClass(count);
-    });
-  }
-  if (sections.length >= 3){ $('aside.sidebar').addClass('thirds'); }
-}
+  // Caption
+  $('.article-entry').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
 
-function testFeatures() {
-  var features = ['maskImage'];
-  $(features).map(function(i, feature) {
-    if (Modernizr.testAllProps(feature)) {
-      $('html').addClass(feature);
-    } else {
-      $('html').addClass('no-'+feature);
-    }
-  });
-  if ("placeholder" in document.createElement("input")) {
-    $('html').addClass('placeholder');
-  } else {
-    $('html').addClass('no-placeholder');
-  }
-}
+      var alt = this.alt;
 
-/*
- * From hexo-theme-landscape
- * Author: @tommy351
- * License: MIT
- * source url: https://github.com/hexojs/hexo-theme-landscape/blob/master/source/js/script.js#L89
- */
-function bindFancybox() {
-  $('#main').each(function(i) {
-    $(this).find("img").each(function() {
-      var alt;
-      if ($(this).parent().hasClass("fancybox")) {
-        return;
-      }
-      alt = this.alt;
-      if (alt) {
-        $(this).after('<span class="caption">' + alt + '</span>');
-      }
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+
       $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
     });
-    $(this).find(".fancybox").each(function() {
+
+    $(this).find('.fancybox').each(function(){
       $(this).attr('rel', 'article' + i);
     });
   });
 
-  if ($.fancybox) {
-    $(".fancybox").fancybox();
+  if ($.fancybox){
+    $('.fancybox').fancybox();
   }
-}
 
-$('document').ready(function() {
-  testFeatures();
-  getNav();
-  addSidebarToggler();
-  bindFancybox();
-});
+  // Mobile nav
+  $('#main-nav-toggle').click(function () {
+    $('#header').toggleClass('mobile-on');
+  });
 
-// iOS scaling bug fix
-// Rewritten version
-// By @mathias, @cheeaun and @jdalton
-// Source url: https://gist.github.com/901295
-(function(doc) {
-  var addEvent = 'addEventListener',
-      type = 'gesturestart',
-      qsa = 'querySelectorAll',
-      scales = [1, 1],
-      meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
-  function fix() {
-    meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
-    doc.removeEventListener(type, fix, true);
-  }
-  if ((meta = meta[meta.length - 1]) && addEvent in doc) {
-    fix();
-    scales = [0.25, 1.6];
-    doc[addEvent](type, fix, true);
-  }
-}(document));
-
+  $(window).scrollTop() > 100 ? $("#GoTop").addClass("show") : $("#GoTop").removeClass("show");
+  $(window).scroll(function() {
+    $(window).scrollTop() > 100 ? $("#GoTop").addClass("show") : $("#GoTop").removeClass("show");
+  });
+  $("#GoTop").click(function() {
+      $("#GoTop").addClass("launch");
+      $("html, body").animate({
+          scrollTop: 0
+      }, 300, function() {
+          $("#GoTop").removeClass("show");
+      });
+      return false;
+  });
+})(jQuery);

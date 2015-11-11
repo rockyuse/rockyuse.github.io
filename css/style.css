@@ -169,6 +169,35 @@ body {
   background-image: none;
   font-family: microsoft yahei;
 }
+.goTop {
+  display: none;
+  font-family: FontAwesome;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  font-size: 36px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.goTop.show {
+  display: block;
+}
+.goTop:hover {
+  background: rgba(0,0,0,0.8);
+}
 .article-meta a,
 a.article-title,
 .article-entry a,
@@ -813,6 +842,9 @@ a.article-title:hover,
 }
 #footer a {
   color: #999;
+}
+#footer span {
+  display: none;
 }
 #footer-info {
   line-height: 50px;
