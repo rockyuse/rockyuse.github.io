@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<title>test</title>
+<body>
+<input type="text" id="Data" />
+<button type="button" onclick="sendMessage()">send</button>
+<iframe id="iframeA" src="http://127.0.0.1:8080/AvatarUI/client.html" style="border:1px solid #ff6600;width:100%;height:300px;"></iframe>
+
+<script type="text/javascript">
+var ifr = document.getElementById('iframeA').contentWindow;
+function sendMessage(){
+	var data = document.getElementById('Data').value;
+	if (window.postMessage) {
+		ifr.postMessage(data, '*');
+	}else{
+		ifr.name = data;
+	}
+}
+
+function callbackFn(data){
+	alert(location.host+':'+data);
+}
+
+
+var hash = '';
+if (window.postMessage) {
+	if (window.addEventListener) {
+		window.addEventListener("message", function (e) {
+			callbackFn.call(window, e.data);
+		}, false);
+	} else if (window.attachEvent) {
+		window.attachEvent("onmessage", function (e) {
+			callbackFn.call(window, e.data);
+		});
+	}
+}else{
+	setInterval(function(){
+		if(window.name != hash){
+			hash = window.name;
+			callbackFn.call(window, hash);
+		}
+	}, 50);
+}
+
+</script>
+</body>
+</html>

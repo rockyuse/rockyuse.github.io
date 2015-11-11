@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>beat number</title>
+<style type="text/css">
+*{margin:0; padding:0;}
+ul,li{list-style: none}
+.beatNum{height:42px; margin:0 auto;}
+.beatNum li{ float:left; width:40px; height: 40px; margin:0 4px; background:#f8f8f8; border:1px solid #a6a6a6; line-height: 40px; font-size:26px; font-weight: normal; font-family: Impact; color:#073073; text-align: center; overflow: hidden;}
+.beatNum li b{ display:block; width:40px; height:40px; }
+.beatNum li.comma{ width:6px; margin:0; border:0; background:none;}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+;!function(){
+	var __hasProp = {}.hasOwnProperty;
+
+	var mergeObjects = function (obj1, obj2) {
+		var key, out, val;
+		out = {};
+		for (key in obj1) {
+			if (!__hasProp.call(obj1, key)) continue;
+			val = obj1[key];
+			out[key] = val;
+		}
+		for (key in obj2) {
+			if (!__hasProp.call(obj2, key)) continue;
+			val = obj2[key];
+			out[key] = val;
+		}
+		return out;
+	};
+
+	var NumBeat = (function(){
+		function NumBeat(options){
+			this.setOptions(options);
+			this.render();
+		}
+
+		NumBeat.prototype.options = {
+			ele: '',
+			num: 2345,
+
+			numWidth: 42,
+			numHieght: 40,
+			numSpacing: 8,
+			numComma: true,
+			numCommaWidth: 6,
+			numCommaSpacing: 0,
+			timeInterval: 150
+		};
+
+		NumBeat.prototype.setOptions = function (options) {
+			if (options == null) {
+				options = null;
+			}
+			this.options = mergeObjects(this.options, options);
+		};
+
+		NumBeat.prototype.render = function () {
+			var _numArr = this.splitNum(this.options.num);
+
+			var bindDom = $('#'+this.options.ele);
+			bindDom.addClass('beatNum').attr('numlen', _numArr.length).html('<ul></ul>');
+
+			var bindDomUl = bindDom.find('ul');
+
+			var _numLiWidth = _numArr.length*(this.options.numWidth + this.options.numSpacing);
+
+			if(this.options.numComma){
+				var _numArrRemain = _numArr.length%3;
+				var _numCommaWidth = Math.floor((_numArr.length-1)/3)*(this.options.numCommaWidth + this.options.numCommaSpacing);
+
+				bindDom.width(_numLiWidth + _numCommaWidth);
+			}else{
+				bindDom.width(_numLiWidth);
+			}
+
+			for (var i = 0; i < _numArr.length; i++) {
+				var _newNum = _numArr[i];
+
+				if(this.options.numComma && i > 0 && (i - _numArrRemain)%3 == 0){
+					bindDomUl.append('<li class="comma">,</li>');
+				}
+
+				bindDomUl.append('<li class="numLi numLi_'+i+'" num="'+_newNum+'"><div class="numList"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b></div></li>');
+				bindDomUl.find('.numLi_'+i+' .numList').animate({'margin-top': -this.options.numHieght*_newNum}, this.options.timeInterval*_newNum);
+			};
+		};
+
+		NumBeat.prototype.splitNum = function(num){
+			var _num = new String(num);
+			var _numArr = [];
+			
+			for (var i = 0; i < _num.length; i++) {
+				_numArr.push(_num.substring(i,i+1));
+			};
+			return _numArr;
+		}
+
+		NumBeat.prototype.update = function(newNum){
+			var _numArr = this.splitNum(newNum);
+			var _numArrLen = _numArr.length;
+
+			var bindDom = $('#'+this.options.ele);
+			var bindDomUl = bindDom.find('ul');
+
+			var _numLiWidth = _numArr.length*(this.options.numWidth + this.options.numSpacing);
+
+			if(this.options.numComma){
+				var _numArrRemain = _numArr.length%3;
+				var _numCommaWidth = Math.floor((_numArr.length-1)/3)*(this.options.numCommaWidth + this.options.numCommaSpacing);
+				bindDom.width(_numLiWidth + _numCommaWidth);
+			}else{
+				bindDom.width(_numLiWidth);
+			}
+
+			if(bindDom.attr('numlen') != _numArrLen){
+				bindDomUl.find('li.comma').remove();
+			}
+
+			for (var i = 0; i < _numArrLen; i++) {
+				var _newNum = _numArr[i];
+
+				if(bindDomUl.find('.numLi_'+i).length == 0){
+					bindDomUl.append('<li class="numLi numLi_'+i+'" num="0"><div class="numList"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b></div></li>');
+				}
+				if(this.options.numComma && bindDom.attr('numlen') != _numArrLen && i > 0 && (i - _numArrRemain)%3 == 0){
+					$('<li class="comma">,</li>').insertBefore(bindDomUl.find('.numLi_'+i));
+				}
+
+				var _oldNum = parseInt(bindDomUl.find('.numLi_'+i).attr('num'));
+
+				if(_oldNum != _newNum){
+					bindDomUl.find('.numLi_'+i).attr('num', _newNum);
+					bindDomUl.find('.numLi_'+i+' .numList').animate({'margin-top': -this.options.numHieght*_newNum}, this.options.timeInterval*Math.abs(_newNum - _oldNum));
+				}
+			};
+			if(bindDomUl.find('li.numLi').length > _numArrLen){
+				for(var i = _numArrLen; i < bindDomUl.find('li.numLi').length; i++){
+					bindDomUl.find('li.numLi').eq(i).remove();
+					i--;
+				}
+			}
+		}
+		return NumBeat;
+	})();
+
+	window.NumBeat = NumBeat;
+}.call(this);
+
+
+	var beat_1 = new NumBeat({
+		ele: 'BeatNum',
+		num: 3456789
+	});
+
+	console.log(beat_1)
+
+	$('#Change').click(function(){
+		beat_1.update(246892541);
+	})
+
+	$('#Change1').click(function(){
+		beat_1.update(23456789);
+	})
+})
+
+
+</script>
+</head>
+<body>
+	<br/><br/>
+	<div id="BeatNum"></div>
+	<br/><br/>
+	<a href="javascript:;" id="Change">change</a>
+	<a href="javascript:;" id="Change1">change1</a>
+</body>
+</html>

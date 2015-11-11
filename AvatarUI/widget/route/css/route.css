@@ -1,0 +1,45 @@
+/**
+ * AvatarUI-route
+ * @version	v2.0.1
+ * @author	Rocky(296456018@qq.com)
+ * @date	2013-04-25
+ */
+
+/*------ route start ------*/
+.chart{ position:relative; min-height:250px; overflow-x:auto; overflow-y:hidden;}
+.chartCon{clear:both; margin-top:50px; height:42px;}
+.chartCon .chartConText{ position: relative; float:left; width:98px; height:40px; margin:0 5px; display: inline; border:1px solid #7477D5; background:#DEEBFB;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+}
+
+.chartCon .chartConText span{ display:block; width:100%; height:16px; line-height:16px; text-align: center; overflow: hidden; word-wrap: break-word; font-size:11px; font-family:Tahoma; }
+.chartCon .chartConText p{ width:100%; height:14px; overflow:hidden; line-height:14px; text-align:center;font-size:12px; font-family:Tahoma; word-wrap: break-word; }
+.chartCon .chartConText .moreText{position:absolute; top:-20px; left:-1px; width:90px; min-height:50px; height:auto; background:#A3C7F3; display:none; word-wrap: break-word;
+-webkit-border-radius: 3px; border-radius: 3px; padding:5px 5px 0; border:1px solid #7477D5;
+}
+.chartCon .chartConText a{ position: absolute; right:-3px; top:-8px; width:10px; height:14px; background: url(images/top_tip.png); font-size: 0; line-height: 0;}
+.chartCon .first{ float: none; display: block; width:200px; height:40px; margin-left:350px;  }
+.chartCon .first span{ display: block;width:100%; height:20px; line-height:20px; font-size:16px; font-weight: bold; text-align: center;}
+.chartCon .disable{ border:1px solid #b4b4b4; background: #C8C8C8;}
+
+.chartCon .hover{ background:#A3C7F3; cursor: pointer;}
+
+.chartPer{ height:22px; margin-top:50px; overflow: hidden;}
+.chartPer .chartPerText{ float: left; width:44px; height:22px; margin-right:25px; display: inline; line-height: 22px; background: #6987C4; color:#fff; font-size:12px; text-align: center; font-family:Tahoma;
+ -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+}
+.chartPer .disable{ background: #C8C8C8;}
+.chartPer .chartPerTextActive{background:#B85552;}
+
+.innerTable{width:98%; margin:8px auto 10px; border:1px solid #D6D6D6}
+.innerTable th{ height:30px; background:#eee; padding:0 5px; border-right:1px solid #d6d6d6; font-size:14px;}
+.innerTable td{ padding:0 5px;}
+.dialogMask{z-index:10000000;}
+.linkA{ display:block; width:55px; height:15px; margin:5px auto; font-weight:normal; border:1px solid #008000; border-radius:2px;
+    color: #008000; background:#FFFFE5; cursor:pointer; text-align:center}
+.linkA:hover{ background:#ABDF2D}
+/*------ route end ------*/

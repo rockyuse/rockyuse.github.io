@@ -1,0 +1,497 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择框组件---AvatarUI</title>
+<link rel="stylesheet" href="../../css/global.css"/>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+<script type="text/javascript" src="js/chosen.js"></script>
+<script type="text/javascript" src="js/data_json.js"></script>
+<link rel="stylesheet" href="css/chosen.css" />
+
+<script type="text/javascript">
+$(function(){
+	//选择框的宽度自定义
+	$('#Chosen1').Chosen({
+		chosenWidth: 150,
+		data: data01
+	});
+
+	//选择框的宽度自定义(默认是200)
+	$('#Chosen2').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		dataListWidth: 400
+	});
+
+	//选择框的高度自定义(默认是280)
+	$('#Chosen3').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		dataListHeight: 400
+	});
+
+	//填充数据之前
+	$('#Chosen4').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		beforeCallback: function(_self, data){
+			console.log(data[0]);
+		}
+	});
+
+	//初始化完毕
+	$('#Chosen5').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		initCallback: function(_self, data){
+			console.log('填充完毕！');
+		}
+	});
+
+	//初始化选中的值
+	$('#Chosen6').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		initSelectedValue: ['Albania'],
+	});
+
+	//选择后的回调
+	$('#Chosen7').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		selectedCallback: function(id, name, _self){
+			alert('选中了：'+id+'-'+name);
+		}
+	});
+
+	//反选后的回调
+	$('#Chosen8').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true,
+		removeCallback: function(id, name, _self){
+			alert('反选了：'+id+'-'+name);
+		}
+	});
+
+	//初始化提示文字
+	$('#Chosen9').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		placeholderTxt: '请选择型号'
+	});
+
+	//可搜索
+	$('#Chosen10').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		searchOpt: true
+	});
+
+	//清除已选项图标
+	$('#Chosen11').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		clearOpt: true
+	});
+
+	//多选
+	$('#Chosen12').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true
+	});
+
+	//多选的内容在一行
+	$('#Chosen13').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true,
+		multiInline: true
+	});
+
+	//最多选择记录数
+	$('#Chosen14').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true,
+		maxSize: 5
+	});
+
+	//超出选择记录的提示
+	$('#Chosen15').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true,
+		maxSizeTip: '只能选择5个型号！'
+	});
+
+	//选项连接符
+	$('#Chosen16').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		multi: true,
+		joinChar: '||',
+		selectedCallback: function(id, name, _self){
+			alert(_self.find('.fixedVal').val());
+		}
+	});
+
+	//后台搜索
+	$('#Chosen17').Chosen({
+		chosenWidth: 200,
+		data: data01,
+		searchOpt: true,
+		searchBack: true,
+		searchAjaxURL: 'getInfo.do',
+		ajaxParam: {'name': 'Tom'}
+	});
+})
+</script>
+
+</head>
+<body>
+<div class="header">
+	<div class="headerCon">
+		<a href="/AvatarUI" class="logo"></a>
+		<div class="nav">
+			<ul>
+				<li><a href="javascript:;">首页</a></li>
+				<li><a href="javascript:;">团队介绍</a></li>
+				<li class="active"><a href="/AvatarUI">AvatarX JS</a></li>
+				<li><a href="javascript:;">产品</a></li>
+				<li><a href="javascript:;">Avatar文档</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="wrap clearfix">
+    <div class="leftMenu">
+		<dl>
+			<dt><a href="../../index.html">返回首页</a></dt>
+		</dl>
+		
+		<dl class="menu">
+			<dt>选择框</dt>
+			<dd>
+				<a href="javascript:;">选择框的宽度自定义</a>
+				<a href="javascript:;">选择框的宽度自定义(默认是200)</a>
+				<a href="javascript:;">选择框的高度自定义(默认是280)</a>
+				<a href="javascript:;">填充数据之前</a>
+				<a href="javascript:;">初始化完毕</a>
+				<a href="javascript:;">初始化选中的值</a>
+				<a href="javascript:;">选择后的回调</a>
+				<a href="javascript:;">反选后的回调</a>
+				<a href="javascript:;">初始化提示文字</a>
+				<a href="javascript:;">可搜索</a>
+				<a href="javascript:;">清除已选项图标</a>
+				<a href="javascript:;">多选</a>
+				<a href="javascript:;">多选的内容在一行</a>
+				<a href="javascript:;">最多选择记录数</a>
+				<a href="javascript:;">超出选择记录的提示</a>
+				<a href="javascript:;">选项连接符</a>
+				<a href="javascript:;">后台搜索</a>
+			</dd>
+		</dl>
+	</div>
+    
+	<div class="mainCon">
+        <div class="items" id="Item0">
+            <h2>选择框的宽度自定义</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen1"></div>
+				<br/>
+	            <pre class="brush:js">
+					$('#Chosen1').Chosen({
+						chosenWidth: 100,
+						data: data01
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item1">
+            <h2>选择框的宽度自定义(默认是200)</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen2"></div>
+				<br/>
+	            <pre class="brush:js">
+					$('#Chosen2').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						dataListWidth: 400
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item2">
+            <h2>选择框的高度自定义(默认是280)</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen3"></div>
+				<br/>
+	            <pre class="brush:js">
+					$('#Chosen3').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						dataListHeight: 400
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item3">
+            <h2>填充数据之前</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen4"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen4').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						beforeCallback: function(_self, data){
+							console.log(data[0]);
+						}
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item4">
+            <h2>初始化完毕</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen5"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen5').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						initCallback: function(_self, data){
+							console.log('填充完毕！');
+						}
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item5">
+            <h2>初始化选中的值</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen6"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen6').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true,
+						initSelectedValue: ['Albania', 'Greenland', 'Iceland'],
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item6">
+            <h2>选择后的回调</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen7"></div>
+	            <div id="ChosenInitSuccess"></div>
+				<br/>
+	            <pre class="brush:js">
+					$('#Chosen7').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						selectedCallback: function(id, name, _self){
+							alert('选中了：'+id+'-'+name);
+						}
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item7">
+            <h2>反选后的回调</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen8"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen8').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						removeCallback: function(id, name, _self){
+							alert('反选了：'+id+'-'+name);
+						}
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item8">
+            <h2>初始化提示文字</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen9"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen9').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						placeholderTxt: '请选择型号'
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item9">
+            <h2>可搜索</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen10"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen10').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						searchOpt: true
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item10">
+            <h2>清除已选项图标</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen11"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen11').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						clearOpt: true
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item11">
+            <h2>多选</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen12"></div>
+				<br/>
+	            <pre class="brush:js">
+					$('#Chosen12').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item12">
+            <h2>多选的内容在一行</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen13"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen13').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true,
+						multiInline: true
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item13">
+            <h2>最多选择记录数</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen14"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen14').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true,
+						maxSize: 5
+					});
+                </pre>
+	        </div>
+	    </div>
+
+		<div class="items" id="Item14">
+            <h2>超出选择记录的提示</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen15"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen15').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true,
+						maxSizeTip: '只能选择5个型号！'
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item15">
+            <h2>选项连接符</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen16"></div>
+				<br/>
+	            <pre class="brush:js">
+		            $('#Chosen16').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						multi: true,
+						joinChar: '||'
+					});
+                </pre>
+	        </div>
+	    </div>
+
+	    <div class="items" id="Item16">
+            <h2>后台搜索</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Chosen17"></div>
+				<br/>
+	            <pre class="brush:js">
+		            //后台搜索
+					$('#Chosen17').Chosen({
+						chosenWidth: 200,
+						data: data01,
+						searchOpt: true,
+						searchBack: true,
+						searchAjaxURL: 'getInfo.do',
+						ajaxParam: {'name': 'Tom'}
+					});
+                </pre>
+	        </div>
+	    </div>
+	    <br/><br/><br/><br/><br/><br/>
+	</div>
+</div>
+
+<div class="footer">AvatarUI</div><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-30799313-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+</body>
+</html>

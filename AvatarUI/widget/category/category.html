@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分类组件---AvatarUI</title>
+<link rel="stylesheet" href="../../css/global.css"/>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+<script type="text/javascript" src="category.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    /*------ 实例化 ------*/
+    
+    //默认_ 逐步请求分类
+	$("#Category_0").Category({
+		url: "../../category/getCategory.do"
+	});
+	
+	//一次性加载所有分类
+	$("#Category_1").Category({
+		url: "../../category/getCategory.do",
+		getData: "once"
+	});
+	
+	//静态的分类数据
+	$("#Category_2").Category({
+		getData: "once",
+		staticData: '{"category":[{"id":"1","fid":"0","name":"家用电器"},{"id":"2","fid":"0","name":"服饰"},{"id":"3","fid":"0","name":"化妆"},{"id":"4","fid":"1","name":"大家电"},{"id":"5","fid":"1","name":"生活电器"},{"id":"6","fid":"1","name":"厨房电器"},{"id":"7","fid":"4","name":"空调"},{"id":"8","fid":"4","name":"冰箱"},{"id":"9","fid":"4","name":"洗衣机"},{"id":"10","fid":"4","name":"热水器"},{"id":"11","fid":"3","name":"面部护理"},{"id":"12","fid":"3","name":"口腔护理"},{"id":"13","fid":"2","name":"男装"},{"id":"14","fid":"2","name":"女装"},{"id":"15","fid":"7","name":"海尔空调"},{"id":"16","fid":"7","name":"美的空调"},{"id":"19","fid":"5","name":"加湿器"},{"id":"20","fid":"5","name":"电熨斗"}]}'
+	});
+	
+	
+	//已有数据的转换(value)
+	$("#Category_3").Category({
+		url: "../../category/getCategory.do",
+		getData: "once",
+		hasValue: "1-4-7"
+	});
+	
+	//已有数据的转换(name)
+	$("#Category_4").Category({
+		url: "../../category/getCategory.do",
+		getData: "once",
+		hasName: "家用电器-大家电-空调-海尔空调"
+	});
+	
+	//已有数据的转换(name)--自定义分隔符
+	$("#Category_5").Category({
+		url: "../../category/getCategory.do",
+		getData: "once",
+		hasName: "家用电器||大家电||空调||海尔空调",
+		splitStr: "||"
+	});
+	
+	
+	//获得选择的下拉框的值
+	$("#GetValue").live("click", function(){
+		var selectVal = "";
+		var selectName = "";
+		var thisSelect = $("#Category_0").find("select");
+
+		$.each(thisSelect, function(key,val){
+			selectVal += $(this).val()+"-";
+			selectName += $(this).find("option:selected").text()+"-";
+		});
+
+		selectVal = selectVal.substring(0, selectVal.lastIndexOf("-"));
+		selectName = selectName.substring(0, selectName.lastIndexOf("-"));
+		
+		alert(selectVal);
+		alert(selectName);
+	});
+});
+</script>
+
+</head>
+<body>
+<div class="header">
+	<div class="headerCon">
+		<a href="/AvatarUI" class="logo"></a>
+		<div class="nav">
+			<ul>
+				<li><a href="javascript:;">首页</a></li>
+				<li><a href="javascript:;">团队介绍</a></li>
+				<li class="active"><a href="/AvatarUI">AvatarX JS</a></li>
+				<li><a href="javascript:;">产品</a></li>
+				<li><a href="javascript:;">Avatar文档</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="wrap clearfix">
+    <div class="leftMenu">
+		<dl>
+			<dt><a href="../../index.html">返回首页</a></dt>
+		</dl>
+		
+		<dl class="menu">
+			<dt>无限级分类</dt>
+			<dd>
+				<a href="javascript:;">默认_ 逐步请求分类</a>
+				<a href="javascript:;">一次性加载所有分类</a>
+				<a href="javascript:;">静态的分类数据</a>
+				<a href="javascript:;">已有数据的转换(value)</a>
+				<a href="javascript:;">已有数据的转换(name)</a>
+				<a href="javascript:;">已有数据的转换(name)--自定义分隔符</a>
+			</dd>
+		</dl>
+	</div>
+    
+    <div class="mainCon">
+        <div class="items" id="Item0">
+            <h2>默认_ 逐步请求分类</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Category_0"></div>
+	            <p><button id="GetValue">获取select的值</button></p>
+	            <pre class="brush:js">
+		            //默认_ 逐步请求分类
+					$("#Category_0").Category({
+						url: "../../category/getCategory.do"
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item1">
+            <h2>一次性加载所有分类</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Category_1"></div>
+	            <pre class="brush:js">
+		            //一次性加载所有分类
+					$("#Category_1").Category({
+						url: "../../category/getCategory.do",
+						getData: "once"
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item2">
+            <h2>静态的分类数据</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+	            <div id="Category_2"></div>
+	            <pre class="brush:js">
+					//静态的分类数据
+					$("#Category_2").Category({
+						getData: "once",
+						staticData: '{"category":[{"id":"1","fid":"0","name":"家用电器"},{"id":"2","fid":"0","name":"服饰"},{"id":"3","fid":"0","name":"化妆"},{"id":"4","fid":"1","name":"大家电"},{"id":"5","fid":"1","name":"生活电器"},{"id":"6","fid":"1","name":"厨房电器"},{"id":"7","fid":"4","name":"空调"},{"id":"8","fid":"4","name":"冰箱"},{"id":"9","fid":"4","name":"洗衣机"},{"id":"10","fid":"4","name":"热水器"},{"id":"11","fid":"3","name":"面部护理"},{"id":"12","fid":"3","name":"口腔护理"},{"id":"13","fid":"2","name":"男装"},{"id":"14","fid":"2","name":"女装"},{"id":"15","fid":"7","name":"海尔空调"},{"id":"16","fid":"7","name":"美的空调"},{"id":"19","fid":"5","name":"加湿器"},{"id":"20","fid":"5","name":"电熨斗"}]}'
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item3">
+            <h2>已有数据的转换(value)</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+            	<p>hasValue: "1-4-7"</p>
+	            <div id="Category_3"></div>
+	            <pre class="brush:js">
+					//已有数据的转换(value)
+					$("#Category_3").Category({
+						url: "../../category/getCategory.do",
+						getData: "once",
+						hasValue: "1-4-7"
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item4">
+            <h2>已有数据的转换(name)</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+            	<p>hasName: "家用电器-大家电-空调-海尔空调";</p>
+	            <div id="Category_4"></div>
+	            <pre class="brush:js">
+					//已有数据的转换(name)
+					$("#Category_4").Category({
+						url: "../../category/getCategory.do",
+						getData: "once",
+						hasName: "家用电器-大家电-空调-海尔空调"
+					});
+                </pre>
+	        </div>
+	    </div>
+	    
+	    <div class="items" id="Item5">
+            <h2>已有数据的转换(name)--自定义分隔符</h2>
+            <a href="javascript:;" class="fold"></a>
+            <div class="itemCon">
+            	<p>hasName: "家用电器||大家电||空调||海尔空调";</p>
+	            <div id="Category_5"></div>
+	            <pre class="brush:js">
+					//已有数据的转换(name)--自定义分隔符
+					$("#Category_5").Category({
+						url: "../../category/getCategory.do",
+						getData: "once",
+						hasName: "家用电器||大家电||空调||海尔空调",
+						splitStr: "||"
+					});
+                </pre>
+	        </div>
+	    </div>
+
+	</div>
+</div>
+<div class="footer">AvatarUI</div><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-30799313-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+</body>
+</html>

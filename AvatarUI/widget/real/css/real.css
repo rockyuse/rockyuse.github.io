@@ -1,0 +1,63 @@
+/**
+ * AvatarUI-实时
+ * @version	v2.0.1
+ * @author	Rocky(296456018@qq.com)
+ * @date	2013-04-25
+ */
+
+/*------ real start ------*/
+/* 实时仪表盘 */
+.meterText{ line-height: 60px; color: #073073; font-family:Tahoma; font-size:40px; text-align: center;}
+
+/* 实时环状图 */
+.realDonutWrap{ width:350px; height:200px; }
+.realDonut{ float:left; position: relative; width:150px; margin:0 12px;}
+.realDonutNewUser{ position: absolute;}
+
+.realDonut .newUser{position: absolute; top:30px; left:0; width:150px;}
+.realDonut .newUserIcon{width:31px; height:34px; margin:0 auto; background:url(../images/icon_person_big.jpg);}
+.realDonut .newUserNum{ height:58px; line-height: 40px; color:#1b64ae; font-size: 30px; font-family: Impact; text-align: center;}
+.realDonut .newUserTxt{ font-size:14px; color:#7F9DCF; text-align: center;}
+.realDonut .newUserMax{ margin-top:10px; color:#777; text-align: center;}
+
+.realDonut .newUserRatePerson{ width:40px; height:17px; margin:3px auto 0; background: url(../images/icon_person_small.png) right 0}
+.realDonut .newUserRatePersonCon{width:0; height:17px; background: url(../images/icon_person_small.png)}
+.realDonut .newUserRateReal{height:46px; line-height:44px; color:#1b64ae; font-size: 30px; font-family: Impact; text-align: center;}
+.realDonut .newUserRateTxt{font-size:14px; color:#7F9DCF; text-align: center;}
+
+/* 累计 */
+.realAccum{width:325px; margin:15px auto;}
+.realAccum dl{ clear: both; margin-bottom:10px; overflow: hidden;}
+.realAccum dl dt{ float: left; width:45px; height:28px; background: url(../images/icon_real.jpg) no-repeat;}
+.realAccum dl dt.dt1{ height:40px; background-position: 0 0;}
+.realAccum dl dt.dt2{ height:28px; background-position: 0 -40px;}
+.realAccum dl dt.dt3{ height:29px; background-position: 0 -68px;}
+.realAccum dl dd{ float: left; }
+.realAccum dl dd h2{font-size:14px; color:#7f9dcf;}
+.realAccum dl dd p{ height:40px; font-size:24px; font-family: Impact; color:#073073;}
+.realAccum dl dd p.p1{height:70px; line-height:60px; font-size:48px;}
+
+/* 温度计 */
+.realTherm{width:280px; height:300px;}
+.thermometer{ float:left; width:110px; margin:0 15px;}
+.thermometer h2{ padding:0; border-bottom: none; line-height:18px; font-size:14px; color:#7F9DCF; text-align: center;}
+.thermometer h3{font-size:18px;  font-family:Impact; color:#073073; text-align: center;}
+.therm{ position: relative; width:39px; height:170px; margin: 0 auto}
+.therm .icon{ position:absolute; bottom:0; left:0; width:39px; height:39px; background: url(../images/thermometer_bg.png); z-index: 1;}
+.thermPillar{ position:relative; float:left; width:22px; height:150px; left:8px; background: url(../images/thermometer_bg.png) -260px 0; border:1px solid #CBCBCB; -webkit-border-radius:4px; border-radius:4px;}
+.thermometer .staticValue{margin-top:5px; color:#777; text-align: center;}
+
+.thermPillar .realValue{position: absolute; left:-1px; bottom:0; width:22px; height:0; background:url(../images/thermometer_bg.png); border-bottom:0; -webkit-border-radius:4px; border-radius:4px;}
+.thermPillar .lastValue{ position: absolute; left:23px; bottom:0; width:5px; height:0; background:url(../images/thermometer_bg.png); border-bottom:0;}
+.thermPillar .lastValueTip{ display: none; position:absolute; left:5px; bottom:0; width:81px; height:58px; padding:5px; background:url(../images/thermometer_bg.png);}
+
+.thermBlue .icon{ background-position: -39px 0}
+.thermOrange .thermPillar .realValue{ background-position:-282px 0; border:1px solid #CD9447;}
+.thermBlue .thermPillar .realValue{ background-position:-309px 0; border:1px solid #6AA3D0;}
+
+.thermOrange .thermPillar .lastValue{ background-position:-304px 0; border-top:1px solid #E3C69C; border-right:1px solid #E3C69C;}
+.thermBlue .thermPillar .lastValue{ background-position:-331px 0; border-top:1px solid #A2C0D8; border-right:1px solid #A2C0D8;}
+
+.thermOrange .thermPillar .lastValueTip{ background-position: -78px 0; color:#b84303;}
+.thermBlue .thermPillar .lastValueTip{ background-position: -169px 0; color:#4989bc;}
+/*------ real start ------*/

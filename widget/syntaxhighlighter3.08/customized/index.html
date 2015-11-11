@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SyntaxHighlighter 自定义修改</title>
+<style type="text/css">
+*{margin:0; padding:0;}
+</style>
+<script type="text/javascript" src="js/shCore.js"></script>
+<link type="text/css" rel="stylesheet" href="css/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="css/shThemeDefault.css"/>
+</head>
+<body>
+<br/><br/>
+详细配置见：
+<a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/">http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/</a>
+<pre class="brush:html">
+	在网页底部加上<script type="text/javascript">SyntaxHighlighter.all();</script>
+</pre>
+
+<br/><br/>
+<h3>普通</h3>
+<pre class="brush:js;">
+function helloSyntaxHighlighter(){
+	return "hi!";
+}
+</pre>
+<br/><br/>
+<h3>不显示行号 gutter:false</h3>
+也可以再shCore.js里面设置 SyntaxHighlighter.defaults.gutter = false;
+<pre class="brush:js; gutter:false">
+function helloSyntaxHighlighter(){
+	return "hi!";
+}
+
+</pre>
+<br/><br/>
+<h3>不显示工具条 toolbar:false</h3>
+也可以再shCore.js里面设置 SyntaxHighlighter.defaults.toolbar = false;
+<pre class="brush:css; toolbar:false">
+.syntaxhighlighter
+{
+	width: 99% !important; /* 99% fixes IE8 horizontal scrollbar */
+	margin: 1em 0 1em 0 !important;
+	padding: 1px !important; /* adds a little border on top and bottom */
+	position: relative !important;
+}
+</pre>
+
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+</body>
+</html>

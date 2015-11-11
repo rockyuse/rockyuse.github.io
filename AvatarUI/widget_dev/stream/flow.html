@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js访问流</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="raphael.js"></script>
+<style type="text/css">
+*{margin:0; padding:0;}
+body{font-size:12px; background:#F7F7F7; font-family: tahoma;}
+
+.flowWrap{ position: relative; height:800px; margin:20px; background:#F7F7F7;}
+.flowCon{ float:left; width:180px; margin-right:100px; display:inline;}
+
+.flowBlock{ width:160px; padding:0 10px; margin-bottom:50px; background: #D9EDF7; border:1px solid #D1DFE0 ;
+-webkit-border-radius: 3px; border-radius: 3px;
+ 
+  background-color: #D9EEC9;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#D9EEC9), to(#85CA54));
+  background-image: -webkit-linear-gradient(top, #D9EEC9, #85CA54);
+  background-image:    -moz-linear-gradient(top, #D9EEC9, #85CA54);
+  background-image:      -o-linear-gradient(top, #D9EEC9, #85CA54);
+  background-image:         linear-gradient(to bottom, #D9EEC9, #85CA54);
+  box-shadow: 0 2px 2px #ccc;
+  color:#555;
+}
+
+.flowBlockFirst{width:160px; margin-bottom:50px; padding:0 10px; border:1px solid #D1DFE0; background:#fff; box-shadow: 0 2px 2px #ccc; color:#555; 
+	-webkit-border-radius: 5px; border-radius: 5px;}
+.flowBlockLightColor{ border:1px solid #E9EDEE; color:#ddd;}
+
+.textTip{ display: none; position: absolute; width:80px; height:30px; border:2px solid #ccc; background: #fff; line-height: 30px; text-align: center; -webkit-border-radius: 3px; border-radius: 3px; z-index:10000;}
+</style>
+</head>
+<body>
+<div class="flowWrap">
+	<div id="DataFlow" style="position:absolute; left:0; top:0;"></div>
+</div>
+<div id="DataFlowSvgPaper" style="position:absolute; top:0; left:180px; z-index:100"></div>
+
+<script type="text/javascript">
+var _data = [
+				{
+					"name": "China",
+					"value": 400,
+					"rate": 40,
+					"flow": [
+								{
+									"name": "/articledetail.php",
+									"value": 150,
+									"rate": 37.5,
+									"outflow": {"value": 50, "rate": 30},
+									"flow": [
+												{
+													"name": "/articlelist.php",
+													"value": 40,
+													"rate": 40
+												},
+												{
+													"name": "/index.php",
+													"value": 30,
+													"rate": 30
+												},
+												{
+													"name": "/about.php",
+													"value": 20,
+													"rate": 20
+												},
+												{
+													"name": "(首页)",
+													"value": 5,
+													"rate": 5
+												},
+												{
+													"name": "(+5个其他网页)",
+													"value": 5,
+													"rate": 5
+												}
+											]
+								},
+								{
+									"name": "(首页)",
+									"value": 120,
+									"rate": 30,
+									"outflow": {"value": 90, "rate": 75},
+									"flow": [
+												{
+													"name": "/articlelist.php",
+													"value": 12,
+													"rate": 10
+												},
+												{
+													"name": "/articledetail.php",
+													"value": 12,
+													"rate": 10
+												},
+												{
+													"name": "/about.php",
+													"value": 6,
+													"rate": 5
+												}
+											]
+								},
+								{
+									"name": "/articlelist.php",
+									"value": 100,
+									"rate": 25,
+									"outflow": {"value": 80, "rate": 80},
+									"flow": [
+												{
+													"name": "/index.php",
+													"value": 10,
+													"rate": 10
+												},
+												{
+													"name": "(+5个其他网页)",
+													"value": 10,
+													"rate": 10
+												}
+											]
+								},
+								{
+									"name": "/search.php",
+									"value": 10,
+									"rate": 2.5,
+									"outflow": {"value": 10, "rate": 100}
+								},
+								{
+									"name": "/svgmap/svgmap.html",
+									"value": 10,
+									"rate": 2.5,
+									"outflow": {"value": 10, "rate": 100}
+								},
+								{
+									"name": "(+5个其他网页)",
+									"value": 10,
+									"rate": 2.5,
+									"outflow": {"value": 10, "rate": 100}
+								}
+							]
+				},
+				{
+					"name": "Taiwan",
+					"value": 300,
+					"rate": 30,
+					"flow": [
+								{
+									"name": "/articledetail.php",
+									"value": 210,
+									"rate": 70,
+									"outflow": {"value": 21, "rate": 10},
+									"flow": [
+												{
+													"name": "/about.php",
+													"value": 189,
+													"rate": 90
+												},
+
+											]
+
+								},
+								{
+									"name": "/articlelist.php",
+									"value": 90,
+									"rate": 30,
+									"outflow": {"value": 90, "rate": 100}
+								}
+							]
+				},
+				{
+					"name": "Hong Kong",
+					"value": 200,
+					"rate": 20,
+					"flow": [
+								{
+									"name": "/articledetail.php",
+									"value": 180,
+									"rate": 90,
+									"outflow": {"value": 90, "rate": 100}
+								},
+								{
+									"name": "/search.php",
+									"value": 20,
+									"rate": 10,
+									"outflow": {"value": 20, "rate": 100}
+								}
+							]
+				},
+				{
+					"name": "United States",
+					"value": 50,
+					"rate": 0.5,
+					"flow": [
+								{
+									"name": "/articledetail.php",
+									"value": 20,
+									"rate": 40,
+									"outflow": {"value": 20, "rate": 100}
+								},
+								{
+									"name": "/articlelist.php",
+									"value": 20,
+									"rate": 40,
+									"flow": [
+												{
+													"name": "(首页)",
+													"value": 20,
+													"rate": 100
+												}
+											]
+								},
+								{
+									"name": "/svgmap/svgmap.html",
+									"value": 10,
+									"rate": 20,
+									"outflow": {"value": 20, "rate": 100}
+								}
+							]
+				},
+				{
+					"name": "(not set)",
+					"value": 30,
+					"rate": 0.3,
+					"flow": [
+								{
+									"name": "/articledetail.php",
+									"value": 30,
+									"rate": 100,
+									"outflow": {"value": 9, "rate": 30},
+									"flow": [
+												{
+													"name": "(首页)",
+													"value": 21,
+													"rate": 70
+												}
+											]
+
+								}
+							]
+				},
+				{
+					"name": "...",
+					"value": 20,
+					"rate": 0.2,
+					"flow": [
+								{
+									"name": "(首页)",
+									"value": 10,
+									"rate": 50,
+									"outflow": {"value": 10, "rate": 100}
+								},
+								{
+									"name": "/articledetail.php",
+									"value": 8,
+									"rate": 40,
+									"outflow": {"value": 8, "rate": 100}
+								},
+								{
+									"name": "(+5个其他网页)",
+									"value": 2,
+									"rate": 10,
+									"outflow": {"value": 2, "rate": 10}
+								}
+							]
+				}
+			];
+
+Raphael.fn.connection = function(obj1, obj2, line, borderWidth, fromY, toY){
+	Array.prototype.indexOf = function(b){for(var a=0,c=this.length;a<c;a++)if(this[a]==b)return a;return-1};
+	var obj1Id = obj1.id,
+		obj2Id = obj2.id;
+	if(obj1.$id.attr('strokes')){
+		var strokes = obj1.$id.attr('strokes').split(',');
+		if(strokes.indexOf(obj2Id) < 0){
+			strokes.push(obj2Id);
+			obj1.$id.attr('strokes', strokes.join(','));
+		}
+	}else{
+		obj1.$id.attr('strokes', obj2Id);
+	}
+	if(obj2.$id.attr('strokes')){
+		var strokes = obj2.$id.attr('strokes').split(',');
+		if(strokes.indexOf(obj1Id) < 0){
+			strokes.push(obj1Id);
+			obj2.$id.attr('strokes', strokes.join(','));
+		}
+	}else{
+		obj2.$id.attr('strokes', obj1Id);
+	}
+	
+    if (obj1.line && obj1.from && obj1.to) {
+        line = obj1;
+        obj1 = line.from;
+        obj2 = line.to;
+    }
+    var bb1 = obj1,
+        bb2 = obj2,
+        p = [{x: bb1.x + bb1.width / 2, y: bb1.y + 1},
+        {x: bb1.x + bb1.width / 2, y: bb1.y + fromY + borderWidth/2 + 1},
+        {x: bb1.x - 1, y: bb1.y + fromY + borderWidth/2 + 1},
+        {x: bb1.x + bb1.width + 1, y: bb1.y + fromY + borderWidth/2 + 1},
+        {x: bb2.x + bb2.width / 2, y: bb2.y + 1},
+        {x: bb2.x + bb2.width / 2, y: bb2.y + toY + borderWidth/2 + 1},
+        {x: bb2.x - 1, y: bb2.y + toY + borderWidth/2 + 1},
+        {x: bb2.x + bb2.width + 1, y: bb2.y + toY + borderWidth/2 + 1}],
+        d = {}, dis = [];
+    for (var i = 0; i < 4; i++) {
+        for (var j = 4; j < 8; j++) {
+            var dx = Math.abs(p[i].x - p[j].x),
+                dy = Math.abs(p[i].y - p[j].y);
+            if ((i == j - 4) || (((i != 3 && j != 6) || p[i].x < p[j].x) && ((i != 2 && j != 7) || p[i].x > p[j].x) && ((i != 0 && j != 5) || p[i].y > p[j].y) && ((i != 1 && j != 4) || p[i].y < p[j].y))) {
+                dis.push(dx + dy);
+                d[dis[dis.length - 1]] = [i, j];
+            }
+        }
+    }
+    if (dis.length == 0) {
+        var res = [0, 4];
+    } else {
+        res = d[Math.min.apply(Math, dis)];
+    }
+    var x1 = p[res[0]].x,
+        y1 = p[res[0]].y,
+        x4 = p[res[1]].x,
+        y4 = p[res[1]].y;
+    dx = Math.max(Math.abs(x1 - x4) / 2, 10);
+    dy = Math.max(Math.abs(y1 - y4) / 2, 10);
+    var x2 = [x1, x1, x1 - dx, x1 + dx][res[0]].toFixed(3),
+        y2 = [y1 - dy, y1 + dy, y1, y1][res[0]].toFixed(3),
+        x3 = [0, 0, 0, 0, x4, x4, x4 - dx, x4 + dx][res[1]].toFixed(3),
+        y3 = [0, 0, 0, 0, y1 + dy, y1 - dy, y4, y4][res[1]].toFixed(3);
+    var path = ["M", x1.toFixed(3)-180, y1.toFixed(3), "C", x2-180, y2, x3-180, y3, x4.toFixed(3)-180, y4.toFixed(3)].join(",");
+    if (line && line.line) {
+        // line.bg && line.bg.attr({path: path});
+        line.line.attr({path: path});
+    } else {
+        var color = typeof line == "string" ? line : "#000";
+        return {
+            //bg: bg && bg.split && this.path(path).attr({stroke: bg.split("|")[0], fill: "none", "stroke-width": bg.split("|")[1] || 3}),
+            line: this.path(path).attr({stroke: line, fill: "none", "stroke-width": borderWidth || 3}),
+            from: obj1Id,
+            to: obj2Id
+        };
+    }
+};
+
+
+var r = Raphael("DataFlowSvgPaper", 1000, 1000);
+function Shape(n){
+	this.id = n;
+	n = $('#'+n);
+	this.$id = n;
+	this.x = n.offset().left;
+	this.y = n.offset().top;
+	this.width = n.outerWidth();
+	this.height = n.outerHeight();
+}
+
+var connectionsKey = [];
+var connections = [];
+
+var blockHeight = 200;
+
+function dataLoop(flowData, leavl, leavlRate, fromId){
+	if(!$('#DataFlow .flowConLeavl_'+leavl).length){
+		$('#DataFlow').append('<div class="flowCon flowConLeavl_'+leavl+'"></div>');
+	}
+	var thisCon = $('#DataFlow .flowConLeavl_'+leavl);
+	var thisConBlock = thisCon.find('.flowBlock');
+	var className = leavl == 0 ? 'flowBlockFirst' : 'flowBlock';
+
+	$.each(flowData, function(k, v){
+		if(leavl == 0){
+			var thisId = 'FlowConLeavl_'+leavl+'_'+k;
+		}else{
+			var thisId = 'FlowConLeavl_'+leavl+'_'+thisCon.find('.flowBlock').length;
+		}
+
+		var thisName = v.name;
+		var thisHeight = parseFloat(blockHeight*v.rate*leavlRate/10000);
+		var _has = false;
+		thisConBlock.each(function(){
+			if($(this).attr('name') == thisName){
+				_has = $(this);
+			}
+		});
+
+		if(_has){
+			var _height = _has.height();
+			_has.height(_height + thisHeight);
+			thisId = _has.attr('id');
+		}else{
+			thisCon.append('<div id="'+thisId+'" class="'+className+'" name="'+thisName+'" style="height:'+thisHeight+'px;">'+thisName+'</div>');
+		};
+
+		if(v.flow){
+			var _leavl = leavl + 1;
+			dataLoop(v.flow, _leavl, v.rate*leavlRate/100, thisId);
+		}
+	});
+}
+
+
+function dataLineLoop(flowData, leavl, leavlRate, fromId){
+	var thisCon = $('#DataFlow .flowConLeavl_'+leavl);
+	var thisConBlock = thisCon.find('.flowBlock');
+
+	$.each(flowData, function(k, v){
+		var thisId = 'FlowConLeavl_'+leavl+'_'+k;
+
+		thisConBlock.each(function(){
+			if($(this).attr('name') == v.name){
+				thisId = $(this).attr('id');
+			}
+		});
+
+		var thisHeight = parseFloat(blockHeight*v.rate*parseFloat(leavlRate)/10000);
+
+		var _thisInPoint = $('#DataFlow #'+thisId).attr('inPoint') ? $('#DataFlow #'+thisId).attr('inPoint') : 0;
+		var _thisOutPoint = $('#DataFlow #'+fromId).attr('outPoint') ? $('#DataFlow #'+fromId).attr('outPoint') : 0;
+
+		if(fromId){
+			var thisHeight = thisHeight < 1 ? 1 : thisHeight;
+			connectionsKey.push(fromId+'|'+thisId);
+			var _line = r.connection(new Shape(fromId), new Shape(thisId), "#D8E3E4", parseFloat(thisHeight), parseFloat(_thisOutPoint), parseFloat(_thisInPoint));
+			var _thisLine = _line.line;
+
+			var _textTipTimer;
+			// _thisLine.mousemove(function(e){
+			// 	clearTimeout(_textTipTimer);
+			// 	_textTipTimer = setTimeout(function(){
+			//         if($('#TextTip').length == 0){
+			// 			$(document.body).append('<div id="TextTip" class="textTip"></div');
+			// 		}
+
+			// 		$('#TextTip').html(v.rate*leavlRate/100).css({'top': e.pageY - 32, 'left': e.pageX - 82}).show();
+
+			// 		_thisLine.staticColor = _thisLine.attr('stroke');
+			// 	    _thisLine.attr({stroke: '#648484'}).toFront();
+			//     }, 200)
+			// });
+
+			// _thisLine.mouseout(function(){
+			// 	clearTimeout(_textTipTimer);
+			// 	$('#TextTip').hide();
+
+			// 	if(_thisLine.staticColor){
+			// 		_thisLine.attr({stroke: _thisLine.staticColor});
+			// 	}else{
+			// 		_thisLine.attr({stroke: '#D8E3E4'});
+			// 	}
+			// });
+
+			connections.push(_line);
+		}
+
+		if($('#DataFlow #'+fromId).attr('outPoint')){
+			$('#DataFlow #'+fromId).attr('outPoint', parseFloat($('#DataFlow #'+fromId).attr('outPoint'))+thisHeight);
+		}else{
+			$('#DataFlow #'+fromId).attr('outPoint', parseFloat(thisHeight));
+		}
+
+		if($('#DataFlow #'+thisId).attr('inPoint')){
+			$('#DataFlow #'+thisId).attr('inPoint', parseFloat($('#DataFlow #'+thisId).attr('inPoint'))+thisHeight);
+		}else{
+			$('#DataFlow #'+thisId).attr('inPoint', parseFloat(thisHeight));
+		}
+
+		if(v.flow){
+			var _leavl = leavl + 1;
+			dataLineLoop(v.flow, _leavl, v.rate*leavlRate/100, thisId);
+		}
+	});
+}
+
+function dataLineLoopSVG(flowData, leavl, fromId, index){
+	var thisCon = $('#DataFlow .flowConLeavl_'+leavl);
+	var thisConBlock = thisCon.find('.flowBlock');
+
+	$.each(flowData, function(k, v){
+		if((leavl == 0 && k == index) || leavl > 0){
+			var thisId = 'FlowConLeavl_'+leavl+'_'+k;
+
+			thisConBlock.each(function(){
+				if($(this).attr('name') == v.name){
+					thisId = $(this).attr('id');
+				}
+			});
+			
+			$.each(connectionsKey, function(key,val){
+				if(val == fromId+'|'+thisId){
+					connections[key].line.attr({stroke: '#88A4A4'}).toFront();
+				}
+			})
+
+			if(v.flow){
+				var _leavl = leavl + 1;
+				dataLineLoopSVG(v.flow, _leavl, thisId);
+			}
+		}
+
+	});
+}
+
+dataLoop(_data, 0, 100);
+dataLineLoop(_data, 0, 100);
+
+$('.flowBlockFirst').click(function(){
+	$('.flowBlockFirst').addClass('flowBlockLightColor');
+	$(this).removeClass('flowBlockLightColor');
+
+	for(var i = 0; i < connections.length; i++){
+		var _connections = connections[i];
+		_connections.line.attr({stroke: '#E0E6E7'});
+	};
+	// 
+
+	var index = $('.flowBlockFirst').index($(this));
+
+	dataLineLoopSVG(_data, 0, $(this).attr('id'), index);
+
+});
+
+$('.flowBlock').click(function(){
+	var thisStrokes = $(this).attr('strokes').split(',');
+	var thisStrokesLen = thisStrokes.length;
+	var _from = $(this).attr('id');
+
+	for(var i = 0; i < connections.length; i++){
+		var _connections = connections[i];
+		for (var j = 0; j < thisStrokesLen; j++) {
+			var _to = thisStrokes[j];
+			if(_connections.from == _from && _connections.to == _to){
+				_connections.line.attr({stroke: '#88A4A4'}).toFront();
+			}else{
+				if(_connections.from != _from){
+					_connections.line.attr({stroke: '#D8E3E4'});
+				}
+			}
+		};
+	};
+});
+
+</script>
+</body>
+</html>

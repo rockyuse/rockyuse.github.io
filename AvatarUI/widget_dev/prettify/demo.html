@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>prettify Demo</title>
+<link rel="stylesheet" type="text/css" href="prettify.css" />
+<script type="text/javascript" src="prettify.js"></script>
+</head>
+<body>
+<pre class="prettyprint">
+	<script type="text/javascript"></script>
+//格式化数字
+function formatNum(str){
+	str = str.toString();
+	if(/[^0-9\.]/.test(str)){return str;}
+	var strFloor = '';
+	if(RegExp('\\.').test(str)){
+		strArr = str.split('.');
+		str = strArr[0];
+		strFloor = '.' + strArr[1];
+	}
+	var n = str.length % 3;
+	if(n){
+		return str.slice(0,n) +  str.slice(n).replace(/(\d{3})/g,',$1') + strFloor;
+	}else{
+		return str.replace(/(\d{3})/g,',$1').slice(1) + strFloor;
+	}
+}
+</pre>
+<script type="text/javascript">
+window.prettyPrint && prettyPrint()
+</script>
+</body>
+</html>
