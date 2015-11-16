@@ -1,0 +1,321 @@
+<!doctype html>
+<html> 
+	<head>
+	<title>Avatar Demo</title>
+	<meta charset='utf8'/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+
+	<script type="text/javascript" src='avatar.js' async='true'></script> 
+	<script>
+/****************************************/
+/*配置及初始化,置于页面最前，保证及时发送统计避免丢失
+/****************************************/
+var avatar=window.Avatar||[];
+window.Avatar=avatar;
+avatar.push({
+	startTime:new Date().getTime()//统计加载时间,放置于页面资源加载之前以保证准确性。
+	,pageId:'index' //页面标识
+	//,throttle:2000
+	,appKey: 'JIDV0TT43566' //标识被统计的应用
+	,init:function(){//页面初始化完成后发送统计前调用，通常用于设置额外的参数，而这些参数又需要Avatar的辅助
+		Avatar.setOption('PVInfo', {times:Avatar.getProperty('nps')});
+	}
+});
+
+/****************************************
+//[用于延迟加载的方式（保留，容易造成丢失）]  [[[[[[[[[[[[[[
+/****************************************/
+/*页面开始加载前的时间，用于统计页面加载时间。放置于最前以保证准确性。
+//var STARTTIME=new Date().getTime();
+//]]]]]]]]]]]]]]]]]*******************************
+
+
+/****************************************/
+/*下面的方法用于DEMO，与Avatar无关
+/****************************************/
+function append(id, start, noImg){
+	location.hash=id;
+	start=start||0;
+	var list=document.getElementById(id);
+	for(var i=start; i<20+start; i++){
+		var li=document.createElement('li');
+		li.innerHTML='<h1>'+i+"</h1>";
+		if(!noImg){
+			li.innerHTML+="<div class='img'><img src='http://img.lenovomm.com/ams/fileman/img/icon/2015-09-24035120-_1443081080346_9199.png?isCompress=true&width=75&height=75&quantity=0.8'/></div>";
+		}
+		//li.innerHTML=i;
+		list.appendChild(li);
+	}
+}
+function del(id){
+	var list=document.getElementById(id);
+	for(var i=0; i<5; i++){
+		if(!list.firstChild)break;
+		list.removeChild(list.firstChild);
+	}
+}
+function show(id){
+	document.getElementById(id).style.display='block';
+}
+function hide(id){
+	document.getElementById(id).style.display='none';
+}
+	</script>
+	<style>
+	*{ position:relative; }
+	.segment{margin-bottom:1em; background:#eee;}
+	li{
+		line-height:3em;
+		margin:1em;
+		border:1px red solid;
+	}
+	li .img{
+		line-height:1em;
+	}
+	#list3 li:before,
+	#list4 li:before,
+	li .img:before{
+		content:'';
+		position:absolute;
+		border-top:1px solid;
+		top:50%;
+		width:100%;
+		z-index:1;
+	}
+	#list4 li:before{
+		top:10%;
+	}
+	#list3{
+		padding:20px;
+	}
+	#list7 li{
+		display:inline-block;
+	}
+	</style>
+	</head>
+	<body>
+		<div class='segment'><a href='test_1_5_7.html'>test.html</a></div>
+		<div class='segment'><a href='javascript:void(0)'  id='lk'>avatar.html</a></div>
+		<div class='segment'>
+			<button  class='btn' index='1'>btn1</button>
+			<button  class='btn' index='2'>btn2</button>
+		</div>
+		<div class='segment'>
+			<div >LIST 1 - class='LINK'</div>
+			<ul id='list1'>
+				<li>
+					<a index='1' class='LINK' href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+				</li>
+				<li>
+					<a index='2' class='LINK' href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+				</li>
+				<li>
+					<a index='3' class='LINK' href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+				</li>
+			</ul>
+		</div>
+		<div class='segment'>
+			<div >LIST 2 - tagName='a' OR attr='parag'</div>
+			<ul id='list2'>
+				<li  index='1'>
+					<a href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+					<p parag>p11111111</p>
+				</li>
+				<li index='2'>
+					<a href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+					<p parag >p2222222</p>
+				</li>
+				<li index='3'>
+					<a href="http://len.com/lezhushow" onclick="return false;">Le Zhu Show</a>
+					<p parag>p33333333</p>
+				</li>
+			</ul>
+		</div>
+		<div class='segment'>
+			<div>LIST 3 - 展示直接子对象</div>
+			<ul id='list3'>
+				<li><h1>0</h1></li>
+				<li><h1>1</h1></li>
+				<li><h1>2</h1></li>
+			</ul>
+			<div>
+					<input type="button" value="append" onclick='append("list3", 3, true)'/>
+					<input type="button" value="empty" onclick='del("list3")'/>
+					<input type="button" value="show" onclick='show("list3")'/>
+					<input type="button" value="hide" onclick='hide("list3")'/>
+			</div>
+		</div>
+		<div class='segment'>
+			<div >LIST 4 - 展示直接子对象, 10% </div>
+			<ul id='list4'>
+			</ul>
+			<div>
+					<input type="button" value="append" onclick='append("list4", null, true)'/>
+					<input type="button" value="empty" onclick='del("list4")'/>
+					<input type="button" value="show" onclick='show("list4")'/>
+					<input type="button" value="hide" onclick='hide("list4")'/>
+			</div>
+		</div>
+		<div class='segment'>
+			<div >LIST 5 - 展示图片（非直接子对象）</div>
+			<ul id='list5'>
+			</ul>
+			<div>
+					<input type="button" value="append" onclick='append("list5")'/>
+					<input type="button" value="empty" onclick='del("list5")'/>
+					<input type="button" value="show" onclick='show("list5")'/>
+					<input type="button" value="hide" onclick='hide("list5")'/>
+			</div>
+		</div>
+		<div class='segment'>
+			<div>LIST 6 - 展示图片（非直接子对象）, 高度不一致</div>
+			<ul id='list6'>
+				<li>
+					<h1>bbbbbbb</h1>
+					<div class='img'><img src='http://img.lenovomm.com/s3/img/app/app-img-lestore/fm_1444809640531_.jpg'/></div>
+				</li>
+			</ul>
+			<div>
+					<input type="button" value="append" onclick='append("list6", 1)'/>
+					<input type="button" value="empty" onclick='del("list6")'/>
+					<input type="button" value="show" onclick='show("list6")'/>
+					<input type="button" value="hide" onclick='hide("list6")'/>
+			</div>
+		</div>
+		<div class='segment'>
+			<div>LIST 7 - 横排</div>
+			<ul id='list7'>
+			</ul>
+			<div>
+					<input type="button" value="append" onclick='append("list7", null, true)'/>
+					<input type="button" value="empty" onclick='del("list7")'/>
+					<input type="button" value="show" onclick='show("list7")'/>
+					<input type="button" value="hide" onclick='hide("list7")'/>
+			</div>
+		</div>
+		<script type="text/javascript">
+/****************************************/
+/*收集数据的回调函数*/
+/****************************************/
+function clickBtnOrLink(evt, target, btnTag, btnCount){
+	var ix;
+	if(!btnTag){
+		btnTag='link';
+		btnCount=1;
+		ix=1;
+	}else{
+		ix=evt.target.getAttribute('index');
+	}
+	location.hash=btnTag+':'+ix+'/'+btnCount;//ie6 test;
+	return ['Category', 'action', 'label', {arg1:0, arg2:0, arg3:0, arg4:0, arg5:0}, 0];
+}
+//后面的返回数据只有'Category'，格式合法。; 
+function clickList1(evt, target){
+	location.hash='.LINK'+evt.target.getAttribute('index');
+	return [location.hash];
+}
+function clickList2Anchor(evt, target){
+	location.hash='_a'+evt.target.parentNode.getAttribute('index');
+	return [location.hash];
+}
+function clickList2Parag(evt, target){
+	location.hash='*parag'+evt.target.innerHTML;
+	return [location.hash];
+}
+function display(evt, tar){
+	var id='';
+	tar=evt.target;
+	for(var i=0, len=tar.length; i<len; i++){
+		id+=tar[i].SS_INDEX;//SS_INDEX是序号,从0开始
+	}
+	location.hash+='|'+id;
+	return ['SHOW', id];
+}
+/*]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]*/
+
+/****************************************/
+/*声明Avatar为数组如果未加载：
+/****************************************/
+window.Avatar=window.Avatar||[];
+
+/****************************************/
+/*异步的方式注册事件：
+/****************************************/
+Avatar.push(['register', null, clickBtnOrLink]);//for code robostness test;
+//options为function，即parser:
+Avatar.push(['register', document.getElementById('lk'), clickBtnOrLink]);
+//options为json表示只有一个事件; 没有selector表示注册对象自身触发事件；有传回给parser的参数args:
+Avatar.push(['register', document.getElementsByClassName?document.getElementsByClassName('btn'):document.getElementsByTagName('button'), 
+		{parser:clickBtnOrLink, args:['button', 2]}]);
+//只有一个事件；class中有'LINK'的对象被点击会触发统计：
+Avatar.push(['register', document.getElementById('list1'), {selector:'.LINK', parser:clickList1}]);
+//options为两个元素的数组，ID为list2的容器被注册了两个事件。一个是tagName为'A'的对象触发，另一个是设置了'parag’属性的对象触发：
+Avatar.push(['register', document.getElementById('list2'), [{selector:'_a', parser:clickList2Anchor}, {selector:'*parag', parser:clickList2Parag}]]);
+
+//展示触发事件：
+
+//没有设置subSelector参数，表示list4的直接子对象被展示时触发统计
+Avatar.push(['register', document.getElementById('list3'), {selector:'||', parser:display}]);
+//设置了ratio为0.1，表示当某个子对象有10%的高度被展示即认为有效并发送统计。
+Avatar.push(['register', document.getElementById('list4'), {selector:'||', parser:display, ratio:0.1}]);
+//ID为list3的容器中的所以tagName为img的对象被展示时会触发上报
+Avatar.push(['register', document.getElementById('list5'), {selector:'||', subSelector:'img', parser:display}]);
+//设置了irregular为true, 表示各个图片的高度有可能不同：
+Avatar.push(['register', document.getElementById('list6'), {selector:'||', subSelector:'img', parser:display, irregular:true}]);
+//横排
+Avatar.push(['register', document.getElementById('list7'), {selector:'||', parser:display, irregular:true}]);
+/*]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]*/
+
+///****************************************
+////[用于延迟加载的方式（保留，容易造成丢失）] [[[[[[[[[[[[[[[[[
+///****************************************/
+///****************************************/
+///*保存点击事件，以保证Avatar加载完成前的事件不会被漏掉。
+///****************************************/
+//var Clicks=[];//保存的点击事件
+//var clicker=function(evt){//保存点击事件的方法
+//	Clicks.push(evt);
+//	//下面一项是为了兼容IE8，它的srcElement过后会消失：
+//	evt.srcElement && (evt.target = evt.srcElement);//will lost;
+//};
+//if(document.body.addEventListener){
+//	document.body.addEventListener('click', clicker);
+//}else if(document.body.attachEvent){
+//	document.body.attachEvent('onclick', clicker);
+//}
+//var RemoveClick=function(){//取消收集点击事件的方法，在Avatar加载完成后自动调用
+//	if(document.body.addEventListener){
+//		document.body.removeEventListener('click', clicker);
+//	}else if(document.body.attachEvent){
+//		document.body.detachEvent('onclick', clicker);
+//	}
+//};
+//
+///****************************************/
+///*配置及初始化
+///****************************************/
+//var avatar=window.Avatar||[];
+//window.Avatar=avatar;
+//avatar.push({
+//	startTime:STARTTIME//统计加载时间
+//	,pageId:'index' //页面标识
+//	//,throttle:2000
+//	,appKey:'123455' //标识被统计的应用
+//	,events:{click:{list:Clicks, remover:RemoveClick}}
+//	,init:function(){//页面初始化完成后发送统计前调用，通常用于设置额外的参数，而这些参数又需要Avatar的辅助
+//		Avatar.setOption('PVInfo', {times:Avatar.getProperty('nps')});
+//	}
+//});
+///****************************************/
+///*加载Avatar
+///****************************************/
+//var scriptTag = document.createElement('script');
+//scriptTag.type = 'text/javascript';
+//scriptTag.async = true;//异步的方式保证不阻塞页面；
+//scriptTag.src = "avatar.js";
+//var head=document.getElementsByTagName("head")[0]||document.documentElement;
+//head.insertBefore(scriptTag, head.firstChild);
+///]]]]]]]]]]]]]]]]]]]]*****************************/
+		</script>
+	</body>
+</html> 
