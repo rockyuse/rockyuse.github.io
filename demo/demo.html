@@ -15,7 +15,7 @@ window.Avatar=avatar;
 avatar.push({
 	startTime:new Date().getTime()//统计加载时间,放置于页面资源加载之前以保证准确性。
 	trackStayTime: true
-	,pageId: 'index' //页面标识
+	,pageId: 'index', //页面标识
 	//,throttle:2000
 	,appKey: 'OV7UH7YA1878' //标识被统计的应用
 	,init:function(){//页面初始化完成后发送统计前调用，通常用于设置额外的参数，而这些参数又需要Avatar的辅助
