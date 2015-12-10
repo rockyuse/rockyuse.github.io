@@ -10,8 +10,8 @@
 /****************************************/
 /*配置及初始化,置于页面最前，保证及时发送统计避免丢失
 /****************************************/
-var avatar=window.Avatar||[];
-window.Avatar=avatar;
+var avatar = window.Avatar||[];
+window.Avatar = avatar;
 avatar.push({
 	startTime:new Date().getTime(),//统计加载时间,放置于页面资源加载之前以保证准确性。
 	trackStayTime: true,
